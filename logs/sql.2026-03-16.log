@@ -1,0 +1,147 @@
+2026-03-16 18:18:17.245 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 1 | create table if not exists app_user ( id bigint primary key, name varchar(100) not null )
+2026-03-16 18:18:17.257 INFO  [traceId= userId=] [restartedMain] p6spy : 5 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (1, 'kim')
+2026-03-16 18:18:17.260 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (2, 'lee')
+2026-03-16 18:18:17.264 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (3, 'park')
+2026-03-16 18:18:20.436 INFO  [traceId= userId=] [restartedMain] p6spy : 10 ms | statement | connection 4 | select * from INFORMATION_SCHEMA.SEQUENCES
+2026-03-16 18:18:20.468 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 4 | alter table if exists refresh_token drop constraint if exists UKkdj16cltjxdksuyiosdhliveg
+2026-03-16 18:18:20.477 INFO  [traceId= userId=] [restartedMain] p6spy : 8 ms | statement | connection 4 | alter table if exists refresh_token add constraint UKkdj16cltjxdksuyiosdhliveg unique (token_hash)
+2026-03-16 18:18:20.480 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists role drop constraint if exists UKiubw515ff0ugtm28p8g3myt0h
+2026-03-16 18:18:20.483 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists role add constraint UKiubw515ff0ugtm28p8g3myt0h unique (role_name)
+2026-03-16 18:18:20.486 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists user_role drop constraint if exists UK872xec3woupu3gw59b04pj3sa
+2026-03-16 18:18:20.488 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists user_role add constraint UK872xec3woupu3gw59b04pj3sa unique (user_id, role_id)
+2026-03-16 18:18:20.493 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK8mkeyj0y8gx4ngt7i50q4rxgg
+2026-03-16 18:18:20.494 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users add constraint UK8mkeyj0y8gx4ngt7i50q4rxgg unique (provider, provider_subject)
+2026-03-16 18:18:20.496 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK6dotkott2kjsp8vw4d0m25fb7
+2026-03-16 18:18:20.499 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 4 | alter table if exists users add constraint UK6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2026-03-16 18:18:20.509 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."role" where 1=0
+2026-03-16 18:18:20.513 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."users" where 1=0
+2026-03-16 18:18:22.377 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 5 | select rhe1_0.id,rhe1_0.child_role,rhe1_0.parent_role from role_hierarchy rhe1_0
+2026-03-16 18:18:25.318 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 6 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_USER'
+2026-03-16 18:18:25.325 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 7 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_ADMIN'
+2026-03-16 18:18:25.334 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 8 | select rhe1_0.id from role_hierarchy rhe1_0 where rhe1_0.parent_role='ROLE_ADMIN' and rhe1_0.child_role='ROLE_USER' fetch first 1 rows only
+2026-03-16 18:51:57.657 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 1 | create table if not exists app_user ( id bigint primary key, name varchar(100) not null )
+2026-03-16 18:51:57.663 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (1, 'kim')
+2026-03-16 18:51:57.665 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (2, 'lee')
+2026-03-16 18:51:57.668 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (3, 'park')
+2026-03-16 18:51:59.880 INFO  [traceId= userId=] [restartedMain] p6spy : 8 ms | statement | connection 4 | select * from INFORMATION_SCHEMA.SEQUENCES
+2026-03-16 18:51:59.901 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists refresh_token drop constraint if exists UKkdj16cltjxdksuyiosdhliveg
+2026-03-16 18:51:59.905 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 4 | alter table if exists refresh_token add constraint UKkdj16cltjxdksuyiosdhliveg unique (token_hash)
+2026-03-16 18:51:59.908 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists role drop constraint if exists UKiubw515ff0ugtm28p8g3myt0h
+2026-03-16 18:51:59.910 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists role add constraint UKiubw515ff0ugtm28p8g3myt0h unique (role_name)
+2026-03-16 18:51:59.913 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists user_role drop constraint if exists UK872xec3woupu3gw59b04pj3sa
+2026-03-16 18:51:59.914 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists user_role add constraint UK872xec3woupu3gw59b04pj3sa unique (user_id, role_id)
+2026-03-16 18:51:59.916 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK8mkeyj0y8gx4ngt7i50q4rxgg
+2026-03-16 18:51:59.918 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists users add constraint UK8mkeyj0y8gx4ngt7i50q4rxgg unique (provider, provider_subject)
+2026-03-16 18:51:59.920 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK6dotkott2kjsp8vw4d0m25fb7
+2026-03-16 18:51:59.922 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users add constraint UK6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2026-03-16 18:51:59.930 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."role" where 1=0
+2026-03-16 18:51:59.935 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."users" where 1=0
+2026-03-16 18:52:01.211 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 5 | select rhe1_0.id,rhe1_0.child_role,rhe1_0.parent_role from role_hierarchy rhe1_0
+2026-03-16 18:52:03.617 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 6 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_USER'
+2026-03-16 18:52:03.622 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 7 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_ADMIN'
+2026-03-16 18:52:03.630 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 8 | select rhe1_0.id from role_hierarchy rhe1_0 where rhe1_0.parent_role='ROLE_ADMIN' and rhe1_0.child_role='ROLE_USER' fetch first 1 rows only
+2026-03-16 19:17:16.708 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 1 | create table if not exists app_user ( id bigint primary key, name varchar(100) not null )
+2026-03-16 19:17:16.713 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (1, 'kim')
+2026-03-16 19:17:16.715 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (2, 'lee')
+2026-03-16 19:17:16.718 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (3, 'park')
+2026-03-16 19:17:18.268 INFO  [traceId= userId=] [restartedMain] p6spy : 6 ms | statement | connection 4 | select * from INFORMATION_SCHEMA.SEQUENCES
+2026-03-16 19:17:18.287 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists refresh_token drop constraint if exists UKkdj16cltjxdksuyiosdhliveg
+2026-03-16 19:17:18.291 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 4 | alter table if exists refresh_token add constraint UKkdj16cltjxdksuyiosdhliveg unique (token_hash)
+2026-03-16 19:17:18.293 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists role drop constraint if exists UKiubw515ff0ugtm28p8g3myt0h
+2026-03-16 19:17:18.302 INFO  [traceId= userId=] [restartedMain] p6spy : 9 ms | statement | connection 4 | alter table if exists role add constraint UKiubw515ff0ugtm28p8g3myt0h unique (role_name)
+2026-03-16 19:17:18.305 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists user_role drop constraint if exists UK872xec3woupu3gw59b04pj3sa
+2026-03-16 19:17:18.306 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists user_role add constraint UK872xec3woupu3gw59b04pj3sa unique (user_id, role_id)
+2026-03-16 19:17:18.308 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK8mkeyj0y8gx4ngt7i50q4rxgg
+2026-03-16 19:17:18.309 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists users add constraint UK8mkeyj0y8gx4ngt7i50q4rxgg unique (provider, provider_subject)
+2026-03-16 19:17:18.311 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK6dotkott2kjsp8vw4d0m25fb7
+2026-03-16 19:17:18.312 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users add constraint UK6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2026-03-16 19:17:18.319 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."role" where 1=0
+2026-03-16 19:17:18.322 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."users" where 1=0
+2026-03-16 19:17:19.401 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 5 | select rhe1_0.id,rhe1_0.child_role,rhe1_0.parent_role from role_hierarchy rhe1_0
+2026-03-16 19:17:21.264 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 6 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_USER'
+2026-03-16 19:17:21.269 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 7 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_ADMIN'
+2026-03-16 19:17:21.276 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 8 | select rhe1_0.id from role_hierarchy rhe1_0 where rhe1_0.parent_role='ROLE_ADMIN' and rhe1_0.child_role='ROLE_USER' fetch first 1 rows only
+2026-03-16 19:20:59.854 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 1 | create table if not exists app_user ( id bigint primary key, name varchar(100) not null )
+2026-03-16 19:20:59.859 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (1, 'kim')
+2026-03-16 19:20:59.862 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (2, 'lee')
+2026-03-16 19:20:59.864 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (3, 'park')
+2026-03-16 19:21:01.562 INFO  [traceId= userId=] [restartedMain] p6spy : 7 ms | statement | connection 4 | select * from INFORMATION_SCHEMA.SEQUENCES
+2026-03-16 19:21:01.578 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists refresh_token drop constraint if exists UKkdj16cltjxdksuyiosdhliveg
+2026-03-16 19:21:01.581 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists refresh_token add constraint UKkdj16cltjxdksuyiosdhliveg unique (token_hash)
+2026-03-16 19:21:01.584 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists role drop constraint if exists UKiubw515ff0ugtm28p8g3myt0h
+2026-03-16 19:21:01.586 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists role add constraint UKiubw515ff0ugtm28p8g3myt0h unique (role_name)
+2026-03-16 19:21:01.589 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists user_role drop constraint if exists UK872xec3woupu3gw59b04pj3sa
+2026-03-16 19:21:01.590 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists user_role add constraint UK872xec3woupu3gw59b04pj3sa unique (user_id, role_id)
+2026-03-16 19:21:01.592 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK8mkeyj0y8gx4ngt7i50q4rxgg
+2026-03-16 19:21:01.593 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists users add constraint UK8mkeyj0y8gx4ngt7i50q4rxgg unique (provider, provider_subject)
+2026-03-16 19:21:01.595 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK6dotkott2kjsp8vw4d0m25fb7
+2026-03-16 19:21:01.596 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users add constraint UK6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2026-03-16 19:21:01.603 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."role" where 1=0
+2026-03-16 19:21:01.607 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."users" where 1=0
+2026-03-16 19:21:02.766 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 5 | select rhe1_0.id,rhe1_0.child_role,rhe1_0.parent_role from role_hierarchy rhe1_0
+2026-03-16 19:21:04.970 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 6 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_USER'
+2026-03-16 19:21:04.975 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 7 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_ADMIN'
+2026-03-16 19:21:04.984 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 8 | select rhe1_0.id from role_hierarchy rhe1_0 where rhe1_0.parent_role='ROLE_ADMIN' and rhe1_0.child_role='ROLE_USER' fetch first 1 rows only
+2026-03-16 19:23:31.004 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 1 | create table if not exists app_user ( id bigint primary key, name varchar(100) not null )
+2026-03-16 19:23:31.010 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (1, 'kim')
+2026-03-16 19:23:31.012 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (2, 'lee')
+2026-03-16 19:23:31.015 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (3, 'park')
+2026-03-16 19:23:32.740 INFO  [traceId= userId=] [restartedMain] p6spy : 7 ms | statement | connection 4 | select * from INFORMATION_SCHEMA.SEQUENCES
+2026-03-16 19:23:32.760 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists refresh_token drop constraint if exists UKkdj16cltjxdksuyiosdhliveg
+2026-03-16 19:23:32.762 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists refresh_token add constraint UKkdj16cltjxdksuyiosdhliveg unique (token_hash)
+2026-03-16 19:23:32.764 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists role drop constraint if exists UKiubw515ff0ugtm28p8g3myt0h
+2026-03-16 19:23:32.766 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists role add constraint UKiubw515ff0ugtm28p8g3myt0h unique (role_name)
+2026-03-16 19:23:32.768 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists user_role drop constraint if exists UK872xec3woupu3gw59b04pj3sa
+2026-03-16 19:23:32.770 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists user_role add constraint UK872xec3woupu3gw59b04pj3sa unique (user_id, role_id)
+2026-03-16 19:23:32.772 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK8mkeyj0y8gx4ngt7i50q4rxgg
+2026-03-16 19:23:32.774 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users add constraint UK8mkeyj0y8gx4ngt7i50q4rxgg unique (provider, provider_subject)
+2026-03-16 19:23:32.775 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK6dotkott2kjsp8vw4d0m25fb7
+2026-03-16 19:23:32.776 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists users add constraint UK6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2026-03-16 19:23:32.782 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."role" where 1=0
+2026-03-16 19:23:32.785 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."users" where 1=0
+2026-03-16 19:23:33.858 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 5 | select rhe1_0.id,rhe1_0.child_role,rhe1_0.parent_role from role_hierarchy rhe1_0
+2026-03-16 19:23:35.635 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 6 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_USER'
+2026-03-16 19:23:35.640 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 7 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_ADMIN'
+2026-03-16 19:23:35.648 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 8 | select rhe1_0.id from role_hierarchy rhe1_0 where rhe1_0.parent_role='ROLE_ADMIN' and rhe1_0.child_role='ROLE_USER' fetch first 1 rows only
+2026-03-16 19:26:14.647 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 1 | create table if not exists app_user ( id bigint primary key, name varchar(100) not null )
+2026-03-16 19:26:14.652 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (1, 'kim')
+2026-03-16 19:26:14.654 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (2, 'lee')
+2026-03-16 19:26:14.656 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (3, 'park')
+2026-03-16 19:26:16.461 INFO  [traceId= userId=] [restartedMain] p6spy : 8 ms | statement | connection 4 | select * from INFORMATION_SCHEMA.SEQUENCES
+2026-03-16 19:26:16.480 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists refresh_token drop constraint if exists UKkdj16cltjxdksuyiosdhliveg
+2026-03-16 19:26:16.483 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists refresh_token add constraint UKkdj16cltjxdksuyiosdhliveg unique (token_hash)
+2026-03-16 19:26:16.486 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists role drop constraint if exists UKiubw515ff0ugtm28p8g3myt0h
+2026-03-16 19:26:16.487 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists role add constraint UKiubw515ff0ugtm28p8g3myt0h unique (role_name)
+2026-03-16 19:26:16.490 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists user_role drop constraint if exists UK872xec3woupu3gw59b04pj3sa
+2026-03-16 19:26:16.491 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists user_role add constraint UK872xec3woupu3gw59b04pj3sa unique (user_id, role_id)
+2026-03-16 19:26:16.494 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK8mkeyj0y8gx4ngt7i50q4rxgg
+2026-03-16 19:26:16.496 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users add constraint UK8mkeyj0y8gx4ngt7i50q4rxgg unique (provider, provider_subject)
+2026-03-16 19:26:16.497 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK6dotkott2kjsp8vw4d0m25fb7
+2026-03-16 19:26:16.499 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users add constraint UK6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2026-03-16 19:26:16.508 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."role" where 1=0
+2026-03-16 19:26:16.512 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."users" where 1=0
+2026-03-16 19:26:17.737 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 5 | select rhe1_0.id,rhe1_0.child_role,rhe1_0.parent_role from role_hierarchy rhe1_0
+2026-03-16 19:26:20.093 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 6 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_USER'
+2026-03-16 19:26:20.098 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 7 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_ADMIN'
+2026-03-16 19:26:20.106 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 8 | select rhe1_0.id from role_hierarchy rhe1_0 where rhe1_0.parent_role='ROLE_ADMIN' and rhe1_0.child_role='ROLE_USER' fetch first 1 rows only
+2026-03-16 19:42:54.016 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 1 | create table if not exists app_user ( id bigint primary key, name varchar(100) not null )
+2026-03-16 19:42:54.021 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (1, 'kim')
+2026-03-16 19:42:54.022 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (2, 'lee')
+2026-03-16 19:42:54.024 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 2 | merge into app_user (id, name) key(id) values (3, 'park')
+2026-03-16 19:42:55.724 INFO  [traceId= userId=] [restartedMain] p6spy : 7 ms | statement | connection 4 | select * from INFORMATION_SCHEMA.SEQUENCES
+2026-03-16 19:42:55.741 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists refresh_token drop constraint if exists UKkdj16cltjxdksuyiosdhliveg
+2026-03-16 19:42:55.744 INFO  [traceId= userId=] [restartedMain] p6spy : 2 ms | statement | connection 4 | alter table if exists refresh_token add constraint UKkdj16cltjxdksuyiosdhliveg unique (token_hash)
+2026-03-16 19:42:55.747 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists role drop constraint if exists UKiubw515ff0ugtm28p8g3myt0h
+2026-03-16 19:42:55.748 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists role add constraint UKiubw515ff0ugtm28p8g3myt0h unique (role_name)
+2026-03-16 19:42:55.751 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists user_role drop constraint if exists UK872xec3woupu3gw59b04pj3sa
+2026-03-16 19:42:55.752 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists user_role add constraint UK872xec3woupu3gw59b04pj3sa unique (user_id, role_id)
+2026-03-16 19:42:55.755 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK8mkeyj0y8gx4ngt7i50q4rxgg
+2026-03-16 19:42:55.756 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists users add constraint UK8mkeyj0y8gx4ngt7i50q4rxgg unique (provider, provider_subject)
+2026-03-16 19:42:55.758 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | alter table if exists users drop constraint if exists UK6dotkott2kjsp8vw4d0m25fb7
+2026-03-16 19:42:55.759 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 4 | alter table if exists users add constraint UK6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2026-03-16 19:42:55.766 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."role" where 1=0
+2026-03-16 19:42:55.769 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 4 | select * from "testdb"."PUBLIC"."users" where 1=0
+2026-03-16 19:42:56.756 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 5 | select rhe1_0.id,rhe1_0.child_role,rhe1_0.parent_role from role_hierarchy rhe1_0
+2026-03-16 19:42:58.599 INFO  [traceId= userId=] [restartedMain] p6spy : 1 ms | statement | connection 6 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_USER'
+2026-03-16 19:42:58.606 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 7 | select r1_0.id,r1_0.description,r1_0.role_name from role r1_0 where r1_0.role_name='ROLE_ADMIN'
+2026-03-16 19:42:58.616 INFO  [traceId= userId=] [restartedMain] p6spy : 0 ms | statement | connection 8 | select rhe1_0.id from role_hierarchy rhe1_0 where rhe1_0.parent_role='ROLE_ADMIN' and rhe1_0.child_role='ROLE_USER' fetch first 1 rows only

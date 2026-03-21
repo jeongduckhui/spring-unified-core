@@ -1,0 +1,53 @@
+merge into app_user (id, name) key(id) values (1, 'kim');
+merge into app_user (id, name) key(id) values (2, 'lee');
+merge into app_user (id, name) key(id) values (3, 'park');
+
+--insert into auth_group (
+--    auth_group_id, company_code, system_type_code, auth_group_name,
+--    admin_yn, use_yn, created_at, created_by
+--) values
+--(101, 'C01', 'BP', 'BP_VIEW', 'N', 'Y', now(), 'system'),
+--(102, 'C01', 'BP', 'BP_EDIT', 'N', 'Y', now(), 'system'),
+--(103, 'C01', 'BP', 'BP_DELETE', 'N', 'Y', now(), 'system'),
+--(104, 'C01', 'BP', 'BP_ADMIN', 'Y', 'Y', now(), 'system'),
+--
+--(201, 'C01', 'DEMAND', 'DEMAND_VIEW', 'N', 'Y', now(), 'system'),
+--(202, 'C01', 'DEMAND', 'DEMAND_EDIT', 'N', 'Y', now(), 'system'),
+--(203, 'C01', 'DEMAND', 'DEMAND_APPROVE', 'N', 'Y', now(), 'system'),
+--(204, 'C01', 'DEMAND', 'DEMAND_ADMIN', 'Y', 'Y', now(), 'system'),
+--
+--(301, 'C01', 'SUPPLY', 'SUPPLY_VIEW', 'N', 'Y', now(), 'system'),
+--(302, 'C01', 'SUPPLY', 'SUPPLY_EDIT', 'N', 'Y', now(), 'system'),
+--(303, 'C01', 'SUPPLY', 'SUPPLY_APPROVE', 'N', 'Y', now(), 'system'),
+--(304, 'C01', 'SUPPLY', 'SUPPLY_ADMIN', 'Y', 'Y', now(), 'system'),
+--
+--(401, 'C01', 'ADMIN', 'USER_MANAGE', 'Y', 'Y', now(), 'system'),
+--(402, 'C01', 'ADMIN', 'ROLE_MANAGE', 'Y', 'Y', now(), 'system'),
+--(403, 'C01', 'ADMIN', 'MENU_MANAGE', 'Y', 'Y', now(), 'system'),
+--(404, 'C01', 'ADMIN', 'SYSTEM_CONFIG', 'Y', 'Y', now(), 'system'),
+--
+--(501, 'C01', 'COMMON', 'COMMON_VIEW', 'N', 'Y', now(), 'system'),
+--(502, 'C01', 'COMMON', 'COMMON_EDIT', 'N', 'Y', now(), 'system');
+--
+--insert into function (
+--    function_id, system_type_code, program_id, sort_order, level_value,
+--    use_yn, parent_function_id, created_at, created_by
+--) values
+--('F001', 'BP', 'bpList', 1, 1, 'Y', null, now(), 'system'),
+--('F002', 'BP', 'bpDetail', 2, 2, 'Y', 'F001', now(), 'system');
+--
+--insert into function_auth_group (
+--    function_id, auth_group_id, use_yn,
+--    created_at, created_by
+--) values
+--('F001', 101, 'Y', now(), 'system'),
+--('F001', 102, 'Y', now(), 'system');
+--
+--insert into user_auth_group (
+--    user_id, auth_group_id,
+--    request_yn, grant_yn,
+--    created_at, created_by
+--) values
+--(1, 101, 'N', 'Y', now(), 'system'),
+--(2, 102, 'N', 'Y', now(), 'system'),
+--(3, 401, 'N', 'Y', now(), 'system');

@@ -1,0 +1,86 @@
+server.port=8081
+
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.url=jdbc:h2:tcp://localhost/~/testdb;MODE=Oracle;DATABASE_TO_UPPER=false;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+spring.datasource.username=sa
+spring.datasource.password=
+
+############################
+# p6spy (LOCAL ONLY)
+############################
+
+decorator.datasource.p6spy.enable-logging=true
+decorator.datasource.p6spy.logging=slf4j
+decorator.datasource.p6spy.multiline=true
+
+decorator.datasource.p6spy.slow-query.enable-logging=true
+decorator.datasource.p6spy.slow-query.threshold=300
+
+############################
+# MyBatis / Hibernate 로그 제거
+############################
+
+mybatis.configuration.log-impl=org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+spring.jpa.show-sql=false
+logging.level.org.hibernate.SQL=OFF
+
+############################
+# SQL 로그
+############################
+
+logging.level.p6spy=INFO
+
+
+=============================
+
+server.port=8081
+
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.url=jdbc:h2:tcp://localhost/~/testdb;MODE=Oracle;DATABASE_TO_UPPER=false;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+spring.datasource.username=sa
+spring.datasource.password=
+
+############################
+# p6spy OFF
+############################
+
+decorator.datasource.p6spy.enable-logging=false
+
+### 운영에서는 sql 로그 OFF로 해야 함.
+
+############################
+# MyBatis SQL 로그 ON
+############################
+
+mybatis.configuration.log-impl=org.apache.ibatis.logging.slf4j.Slf4jImpl
+logging.level.org.apache.ibatis=DEBUG
+logging.level.com.example.demo=DEBUG
+
+############################
+# Hibernate SQL 로그 ON
+############################
+
+spring.jpa.show-sql=false
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.orm.jdbc.bind=TRACE
+
+############################
+# MyBatis SQL 로그 OFF
+############################
+
+#mybatis.configuration.log-impl=org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+############################
+# Hibernate SQL 로그 OFF
+############################
+
+#spring.jpa.show-sql=false
+#logging.level.org.hibernate.SQL=OFF
+#logging.level.org.hibernate.orm.jdbc.bind=OFF
+
+############################
+# 기본 로그 레벨
+############################
+
+logging.level.root=INFO

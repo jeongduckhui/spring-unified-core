@@ -1,0 +1,2 @@
+2026-03-14 13:25:07.625 INFO  [traceId=919517b1] [http-nio-8081-exec-5] SECURITY : LOGIN SUCCESS user=user
+2026-03-14 13:26:08.173 WARN  [traceId=2e92f300] [http-nio-8081-exec-7] SECURITY : LOGIN FAIL user=user reason=자격 증명에 실패하였습니다.

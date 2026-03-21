@@ -1,0 +1,29 @@
+0 ms | debug | connection -1 | Registered factory: com.p6spy.engine.spy.P6SpyFactory with options: com.p6spy.engine.spy.P6SpyOptions
+0 ms | debug | connection -1 | Registered factory: com.p6spy.engine.logging.P6LogFactory with options: com.p6spy.engine.logging.P6LogOptions
+0 ms | debug | connection -1 | com.p6spy.engine.spy.P6ModuleManager re/initiating modules done
+3 ms | statement | connection 5 | select         id,         name         from app_user         where id = 1
+0 ms | debug | connection -1 | P6Spy intentionally did not log category: resultset, statement: select         id,         name         from app_user         where id = 1  Reason: logger=com.p6spy.engine.spy.appender.FileLogger@2414d9a5, isLoggable=true, isCategoryOk=false, meetsTreshold=true
+0 ms | debug | connection -1 | P6Spy intentionally did not log category: result, statement:   Reason: logger=com.p6spy.engine.spy.appender.FileLogger@2414d9a5, isLoggable=true, isCategoryOk=false, meetsTreshold=true
+0 ms | debug | connection -1 | P6Spy intentionally did not log category: commit, statement:   Reason: logger=com.p6spy.engine.spy.appender.FileLogger@2414d9a5, isLoggable=true, isCategoryOk=false, meetsTreshold=true
+0 ms | statement | connection 6 | select au1_0.id,au1_0.name from app_user au1_0 where au1_0.id=2
+0 ms | debug | connection -1 | P6Spy intentionally did not log category: result, statement:   Reason: logger=com.p6spy.engine.spy.appender.FileLogger@2414d9a5, isLoggable=true, isCategoryOk=false, meetsTreshold=true
+0 ms | debug | connection -1 | P6Spy intentionally did not log category: commit, statement:   Reason: logger=com.p6spy.engine.spy.appender.FileLogger@2414d9a5, isLoggable=true, isCategoryOk=false, meetsTreshold=true
+0 ms | debug | connection -1 | Registered factory: com.p6spy.engine.spy.P6SpyFactory with options: com.p6spy.engine.spy.P6SpyOptions
+0 ms | debug | connection -1 | Registered factory: com.p6spy.engine.logging.P6LogFactory with options: com.p6spy.engine.logging.P6LogOptions
+0 ms | debug | connection -1 | com.p6spy.engine.spy.P6ModuleManager re/initiating modules done
+3 ms | statement | connection 5 | select id, name from app_user where id = 1
+0 ms | debug | connection -1 | P6Spy intentionally did not log category: resultset, statement: select id, name from app_user where id = 1 Reason: logger=com.p6spy.engine.spy.appender.FileLogger@51cf7766, isLoggable=true, isCategoryOk=false, meetsTreshold=true
+0 ms | debug | connection -1 | P6Spy intentionally did not log category: result, statement: Reason: logger=com.p6spy.engine.spy.appender.FileLogger@51cf7766, isLoggable=true, isCategoryOk=false, meetsTreshold=true
+0 ms | debug | connection -1 | P6Spy intentionally did not log category: commit, statement: Reason: logger=com.p6spy.engine.spy.appender.FileLogger@51cf7766, isLoggable=true, isCategoryOk=false, meetsTreshold=true
+0 ms | statement | connection 6 | select au1_0.id,au1_0.name from app_user au1_0 where au1_0.id=2
+0 ms | debug | connection -1 | P6Spy intentionally did not log category: result, statement: Reason: logger=com.p6spy.engine.spy.appender.FileLogger@51cf7766, isLoggable=true, isCategoryOk=false, meetsTreshold=true
+0 ms | debug | connection -1 | P6Spy intentionally did not log category: commit, statement: Reason: logger=com.p6spy.engine.spy.appender.FileLogger@51cf7766, isLoggable=true, isCategoryOk=false, meetsTreshold=true
+0 ms | debug | connection -1 | Registered factory: com.p6spy.engine.spy.P6SpyFactory with options: com.p6spy.engine.spy.P6SpyOptions
+0 ms | debug | connection -1 | Registered factory: com.p6spy.engine.logging.P6LogFactory with options: com.p6spy.engine.logging.P6LogOptions
+0 ms | debug | connection -1 | com.p6spy.engine.spy.P6ModuleManager re/initiating modules done
+0 ms | debug | connection -1 | Registered factory: com.p6spy.engine.spy.P6SpyFactory with options: com.p6spy.engine.spy.P6SpyOptions
+0 ms | debug | connection -1 | Registered factory: com.p6spy.engine.logging.P6LogFactory with options: com.p6spy.engine.logging.P6LogOptions
+0 ms | debug | connection -1 | com.p6spy.engine.spy.P6ModuleManager re/initiating modules done
+0 ms | debug | connection -1 | Registered factory: com.p6spy.engine.spy.P6SpyFactory with options: com.p6spy.engine.spy.P6SpyOptions
+0 ms | debug | connection -1 | Registered factory: com.p6spy.engine.logging.P6LogFactory with options: com.p6spy.engine.logging.P6LogOptions
+0 ms | debug | connection -1 | com.p6spy.engine.spy.P6ModuleManager re/initiating modules done

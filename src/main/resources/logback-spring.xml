@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <!-- =========================================================
+         공통 로그 설정
+         =========================================================
+         LOG_PATH
+         로그 파일이 저장될 기본 디렉토리
+
+         LOG_PATTERN
+         로그 출력 포맷 정의
+
+         traceId  : 요청 단위 추적 ID (TraceIdFilter)
+         userId   : 로그인 사용자 ID (UserMdcFilter)
+         thread   : 실행 스레드
+         logger   : 로그 발생 클래스
+         ========================================================= -->
+
+    <property name="LOG_PATH" value="logs"/>
+
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [traceId=%X{traceId} userId=%X{userId}] [%thread] %logger{20} : %msg%n"/>
+
+
+    <!-- =========================================================
+         Console Appender
+         =========================================================
+         개발 환경에서 콘솔 로그 출력
+         ========================================================= -->
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- =========================================================
+         API 로그 파일
+         =========================================================
+         모든 일반 로그를 기록
+
+         예
+         API 요청
+         서비스 로그
+         일반 INFO 로그
+         ========================================================= -->
+
+    <appender name="API_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>${LOG_PATH}/api.log</file>
+
+        <!-- 날짜별 로그 롤링 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/api.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+
+    </appender>
+
+
+    <!-- =========================================================
+         ERROR 로그 파일
+         =========================================================
+         ERROR 이상 로그만 별도 저장
+
+         장애 분석 시 사용
+         ========================================================= -->
+
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>${LOG_PATH}/error.log</file>
+
+        <!-- ERROR 레벨 이상만 기록 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+
+    </appender>
+
+
+    <!-- =========================================================
+         SECURITY 로그 파일
+         =========================================================
+         보안 이벤트 로그
+
+         기록 이벤트
+
+         LOGIN_SUCCESS
+         LOGIN_FAIL
+         ACCESS_DENIED
+         LOGOUT
+         TOKEN_REFRESH
+         TOKEN_INVALID
+         ========================================================= -->
+
+    <appender name="SECURITY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>${LOG_PATH}/security.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/security.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+
+    </appender>
+
+
+    <!-- =========================================================
+         SECURITY LOGGER
+         =========================================================
+         SecurityLogger 클래스에서 사용하는 Logger
+
+         Logger 이름 : SECURITY
+         ========================================================= -->
+
+    <logger name="SECURITY"
+            level="INFO"
+            additivity="false">
+
+        <appender-ref ref="SECURITY_FILE"/>
+        <appender-ref ref="STDOUT"/>
+
+    </logger>
+
+
+    <!-- =========================================================
+         LOCAL PROFILE
+         =========================================================
+         개발 환경 설정
+
+         SQL 로그 활성화
+         ========================================================= -->
+
+    <springProfile name="local">
+
+        <!-- SQL 로그 파일 -->
+        <appender name="SQL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+            <file>${LOG_PATH}/sql.log</file>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_PATH}/sql.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+
+            <encoder>
+                <pattern>${LOG_PATTERN}</pattern>
+            </encoder>
+
+        </appender>
+
+        <!-- p6spy SQL 로그 -->
+        <logger name="p6spy"
+                level="DEBUG"
+                additivity="false">
+
+            <appender-ref ref="SQL_FILE"/>
+            <appender-ref ref="STDOUT"/>
+
+        </logger>
+
+    </springProfile>
+
+
+    <!-- =========================================================
+         PROD PROFILE
+         =========================================================
+         운영 환경 설정
+
+         SQL 로그 비활성화
+         ========================================================= -->
+
+    <springProfile name="prod">
+
+        <logger name="p6spy" level="OFF"/>
+        <logger name="org.hibernate.SQL" level="OFF"/>
+        <logger name="org.mybatis" level="OFF"/>
+
+    </springProfile>
+
+
+    <!-- =========================================================
+         ROOT LOGGER
+         =========================================================
+         기본 로그 설정
+
+         모든 일반 로그는
+
+         Console
+         api.log
+         error.log
+
+         로 출력
+         ========================================================= -->
+
+    <root level="INFO">
+
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="API_FILE"/>
+        <appender-ref ref="ERROR_FILE"/>
+
+    </root>
+
+</configuration>
