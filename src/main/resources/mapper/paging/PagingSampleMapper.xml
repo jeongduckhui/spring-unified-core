@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.paging.mapper.PagingSampleMapper">
+
+    <resultMap id="PagingSampleRowMap" type="com.example.demo.paging.dto.PagingSampleRow">
+        <result property="sampleId" column="SAMPLE_ID"/>
+        <result property="title" column="TITLE"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="useYn" column="USE_YN"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="tot_count" column="TOT_COUNT"/>
+    </resultMap>
+
+    <sql id="whereClause">
+        WHERE 1 = 1
+        <if test="title != null and title != ''">
+            AND TITLE LIKE '%' || #{title} || '%'
+        </if>
+        <if test="category != null and category != ''">
+            AND CATEGORY = #{category}
+        </if>
+        <if test="use_yn != null and use_yn != ''">
+            AND USE_YN = #{use_yn}
+        </if>
+    </sql>
+
+    <select id="selectPagingSamplePage" parameterType="com.example.demo.paging.dto.PagingSampleRequest" resultMap="PagingSampleRowMap">
+        SELECT
+        SAMPLE_ID,
+        TITLE,
+        CATEGORY,
+        USE_YN,
+        CREATED_AT,
+        TOT_COUNT
+        FROM
+        (
+        SELECT
+        ROW_NUMBER() OVER (ORDER BY CREATED_AT DESC, SAMPLE_ID DESC) AS RN,
+        COUNT(*) OVER() AS TOT_COUNT,
+        SAMPLE_ID,
+        TITLE,
+        CATEGORY,
+        USE_YN,
+        TO_CHAR(CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS CREATED_AT
+        FROM TB_PAGING_SAMPLE
+        <include refid="whereClause"/>
+        )
+        WHERE RN BETWEEN (#{page_no} - 1) * #{row_per_page} + 1
+        AND #{page_no} * #{row_per_page}
+        ORDER BY SAMPLE_ID DESC
+    </select>
+
+    <select id="selectPagingSampleAll" parameterType="com.example.demo.paging.dto.PagingSampleRequest" resultMap="PagingSampleRowMap">
+        SELECT
+        SAMPLE_ID,
+        TITLE,
+        CATEGORY,
+        USE_YN,
+        TO_CHAR(CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS CREATED_AT,
+        COUNT(*) OVER() AS TOT_COUNT
+        FROM TB_PAGING_SAMPLE
+        <include refid="whereClause"/>
+        ORDER BY CREATED_AT DESC, SAMPLE_ID DESC
+    </select>
+
+</mapper>

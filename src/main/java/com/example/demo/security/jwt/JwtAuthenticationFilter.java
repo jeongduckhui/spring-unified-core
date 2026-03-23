@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return path.startsWith("/oauth2/")
                 || path.startsWith("/login/")
                 || path.startsWith("/error")
-                || path.startsWith("/auth/refresh"); // ⭐ 추가 (중요)
+                || path.startsWith("/auth/refresh"); // refresh 도 제외시켜야 함
     }
 
     @Override
