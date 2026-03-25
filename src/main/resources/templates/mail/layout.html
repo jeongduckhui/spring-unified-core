@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6f6f6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            margin: 0 auto;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .header {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <!-- 헤더 -->
+    <div class="header">
+        GSCM 시스템
+    </div>
+
+    <!-- 본문 -->
+    <div class="content">
+        <p th:text="${title}">제목</p>
+
+        <p th:utext="${content}">내용</p>
+
+        <!-- 버튼 (있을 때만) -->
+        <div th:if="${buttonUrl != null}">
+            <a th:href="${buttonUrl}" class="button"
+               th:text="${buttonText}">버튼</a>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        본 메일은 시스템에 의해 자동 발송되었습니다.
+    </div>
+
+</div>
+</body>
+</html>

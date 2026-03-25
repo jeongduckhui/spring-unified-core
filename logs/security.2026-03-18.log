@@ -1,1 +1,0 @@
-2026-03-18 20:29:38.888 INFO  [traceId=157c606f userId=1] [http-nio-8081-exec-7] SECURITY : LOGOUT user=1 ip=0:0:0:0:0:0:0:1 uri=/auth/logout traceId=157c606f

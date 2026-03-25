@@ -318,7 +318,7 @@ public class AuthController {
         List<DeviceSessionResponse> activeDevices =
                 authService.getActiveDevices(userId, currentRefreshToken);
 
-        // 👉 페이징 없이 단순 리스트일 경우
+        // 페이징 없이 단순 리스트일 경우
         return PageResponse.<DeviceSessionResponse>builder()
                 .content(activeDevices)
                 .page(0)

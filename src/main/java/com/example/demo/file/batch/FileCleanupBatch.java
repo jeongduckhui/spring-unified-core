@@ -26,8 +26,8 @@ public class FileCleanupBatch {
     @Value("${file.cleanup.days}")
     private int cleanupDays;
 
-    @Scheduled(cron = "0 * * * * *") // test 용
-//    @Scheduled(cron = "0 0 3 * * *")
+//    @Scheduled(cron = "0 * * * * *") // test 용
+    @Scheduled(cron = "0 0 3 * * *")
     public void cleanup() {
 
         LocalDateTime cutoffDateTime = LocalDateTime.now().minusDays(cleanupDays);
