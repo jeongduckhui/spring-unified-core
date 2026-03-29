@@ -4,6 +4,7 @@ import com.example.demo.authgroup.domain.UserAuthGroup;
 import com.example.demo.authgroup.repository.UserAuthGroupRepository;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 public class AuthGroupServiceImpl implements AuthGroupService {
 
     private final UserAuthGroupRepository userAuthGroupRepository;
+
+    @Qualifier("userAuthCache")
     private final Cache<Long, Object> userAuthCache;
 
     /**

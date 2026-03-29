@@ -4,7 +4,9 @@ import com.example.demo.mail.dto.UserMailRequest;
 import com.example.demo.mail.service.UserMailFacadeService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,7 +36,9 @@ public class UserMailController {
             @RequestParam String to,
             @RequestParam String subject,
             @RequestParam String content,
-            @RequestPart(required = false) List<MultipartFile> files
+            @RequestPart(required = false) List<MultipartFile> files,
+            Authentication authentication,
+            HttpServletRequest httpServletRequest
     ) throws Exception {
 
         List<String> toList = objectMapper.readValue(
@@ -42,10 +46,17 @@ public class UserMailController {
                 new TypeReference<List<String>>() {}
         );
 
+        Long userId = Long.valueOf(authentication.getName());
+
         UserMailRequest request = new UserMailRequest();
         request.setTo(toList);
         request.setSubject(subject);
         request.setContent(content);
+
+        request.setUserId(userId);
+        request.setIp(httpServletRequest.getRemoteAddr());
+        request.setUserAgent(httpServletRequest.getHeader("User-Agent"));
+        request.setDeviceId(httpServletRequest.getHeader("X-Device-Id"));
 
         facade.send(request, files);
     }

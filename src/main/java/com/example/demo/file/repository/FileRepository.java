@@ -11,4 +11,6 @@ public interface FileRepository extends JpaRepository<FileEntity, Long> {
     Optional<FileEntity> findByIdAndDeletedFalse(Long id);
     List<FileEntity> findByUserIdAndDeletedFalseOrderByCreatedAtDesc(Long userId);
     List<FileEntity> findByDeletedTrueAndDeletedAtBefore(LocalDateTime time);
+
+    List<FileEntity> findByMailAttachmentTrueAndExpireAtBeforeAndDeletedFalse(LocalDateTime now);
 }

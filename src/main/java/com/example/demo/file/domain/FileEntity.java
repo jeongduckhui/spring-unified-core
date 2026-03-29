@@ -97,6 +97,18 @@ public class FileEntity {
      */
     private String deviceId;
 
+    /**
+     * 메일 첨부파일 여부
+     */
+    @Column(name = "mail_attachment")
+    private Boolean mailAttachment;
+
+    /**
+     * 메일 첨부파일 만료일
+     */
+    @Column(name = "expire_at")
+    private LocalDateTime expireAt;
+    
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();

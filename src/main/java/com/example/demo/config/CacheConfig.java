@@ -24,4 +24,12 @@ public class CacheConfig {
                 .maximumSize(10_000)
                 .build();
     }
+
+    @Bean
+    public com.github.benmanes.caffeine.cache.Cache<String, String> messageLocalCache() {
+        return Caffeine.newBuilder()
+                .expireAfterWrite(30, TimeUnit.MINUTES)
+                .maximumSize(10_000)
+                .build();
+    }
 }

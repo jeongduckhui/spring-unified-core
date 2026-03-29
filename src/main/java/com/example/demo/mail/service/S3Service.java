@@ -21,7 +21,7 @@ public class S3Service {
     private final S3Client s3Client;
     private final S3Presigner presigner;
 
-    @Value("${cloud.aws.s3.bucket}")
+    @Value("${aws.s3.bucket}")
     private String bucket;
 
     public String upload(MultipartFile file) {
@@ -29,7 +29,7 @@ public class S3Service {
         try {
             String key = createKey(file);
 
-            // 🔥 1. S3 업로드
+            // 1. S3 업로드
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(bucket)
                     .key(key)
@@ -41,7 +41,7 @@ public class S3Service {
                     RequestBody.fromBytes(file.getBytes())
             );
 
-            // 🔥 2. presigned URL 생성
+            // 2. presigned URL 생성
             return generatePresignedUrl(key);
 
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class S3Service {
 
         GetObjectPresignRequest presignRequest =
                 GetObjectPresignRequest.builder()
-                        .signatureDuration(Duration.ofMinutes(3)) // 🔥 3분
+                        .signatureDuration(Duration.ofMinutes(3)) // 3분
                         .getObjectRequest(getObjectRequest)
                         .build();
 

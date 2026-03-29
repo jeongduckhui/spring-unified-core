@@ -35,7 +35,6 @@ dependencies {
      Spring Boot 기본 스타터
      -------------------------------------------------
      */
-
     // Spring MVC (REST API)
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
@@ -48,7 +47,6 @@ dependencies {
      Spring Security
      -------------------------------------------------
      */
-
     // Spring Security 기본
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
@@ -62,7 +60,6 @@ dependencies {
      JWT 인증
      -------------------------------------------------
      */
-
     // JWT API
     implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
 
@@ -77,7 +74,6 @@ dependencies {
      Database / JPA
      -------------------------------------------------
      */
-
     // Spring Data JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
@@ -86,7 +82,6 @@ dependencies {
      MyBatis (조회 전용 Mapper)
      -------------------------------------------------
      */
-
     // MyBatis Spring Boot Starter
     // Mapper 인터페이스 기반 SQL 매핑 지원
     // 주로 복잡한 조회 쿼리 처리에 사용
@@ -119,7 +114,6 @@ dependencies {
      Redis (토큰 관리 / 블랙리스트)
      -------------------------------------------------
      */
-
     // Redis 연결
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
@@ -128,7 +122,6 @@ dependencies {
      Jackson JSR310 모듈 등록
      -------------------------------------------------
      */
-
     // Jackson JSR310 모듈 등록. Redis에서 LocalDateTime 객체를 인식하게 하기 위해
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
@@ -138,7 +131,6 @@ dependencies {
      AOP (Aspect Oriented Programming)
      -------------------------------------------------
      */
-
     // AOP 지원
     // 공통 로깅, 실행시간 측정, 트랜잭션 추적, 보안 로깅 등에 사용
     implementation 'org.springframework.boot:spring-boot-starter-aop'
@@ -149,7 +141,6 @@ dependencies {
      Logging / SQL 추적
      -------------------------------------------------
      */
-
     // SQL 로그 출력 (p6spy)
     // 실제 실행되는 SQL + 파라미터 확인 가능
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.10.0'
@@ -159,7 +150,6 @@ dependencies {
      Swagger / OpenAPI
      -------------------------------------------------
      */
-
     // OpenAPI 명세 자동 생성
     // Swagger UI 제공
     // Controller 기반 REST API 문서 자동 생성
@@ -171,7 +161,6 @@ dependencies {
      Object Mapping
      -------------------------------------------------
      */
-
     // DTO ↔ Entity 변환
     implementation 'org.modelmapper:modelmapper:3.1.0'
 
@@ -181,7 +170,6 @@ dependencies {
      caffeine
      -------------------------------------------------
      */
-
     implementation 'com.github.ben-manes.caffeine:caffeine'
 
 
@@ -190,8 +178,22 @@ dependencies {
      AWS S3
      -------------------------------------------------
      */
-
     implementation 'software.amazon.awssdk:s3:2.25.20'
+
+    /*
+     -------------------------------------------------
+     jasypt
+     -------------------------------------------------
+     */
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
+
+    /*
+     -------------------------------------------------
+     Tika 파일 content-type, MIME 판별
+     -------------------------------------------------
+     */
+    implementation 'org.apache.tika:tika-core:2.9.2'
+    implementation 'org.apache.tika:tika-parsers-standard-package:2.9.2'
 
 
     /*

@@ -45,10 +45,14 @@ public class FileCleanupBatch {
                         file.getStoredName()
                 );
 
+                // 1. 스토리지 삭제
                 fileStorage.delete(
                         file.getStoredName(),
                         file.getFilePath()
                 );
+
+                // 2. DB 완전 삭제 (핵심)
+                fileRepository.delete(file);
 
                 log.info("파일 삭제 성공: fileId={}", file.getId());
 

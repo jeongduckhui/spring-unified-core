@@ -3,6 +3,7 @@ package com.example.demo.file.storage;
 import com.example.demo.common.exception.BusinessException;
 import com.example.demo.common.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.internal.asm.tree.TryCatchBlockNode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.io.Resource;
@@ -65,37 +66,20 @@ public class S3FileStorage implements FileStorage {
             throw new BusinessException(ExceptionCode.FILE_UPLOAD_FAILED, e);
         }
     }
-    /*
-    public String save(MultipartFile file, String storedName, String path) {
-
-        String key = path + storedName;
-
-        try {
-            PutObjectRequest request = PutObjectRequest.builder()
-                    .bucket(bucket)
-                    .key(key)
-                    .contentType(file.getContentType())
-                    .build();
-
-            s3Client.putObject(request, RequestBody.fromBytes(file.getBytes()));
-
-            return key;
-
-        } catch (Exception e) {
-            throw new BusinessException(ExceptionCode.FILE_UPLOAD_FAILED, e);
-        }
-    }
-    */
 
     @Override
     public void delete(String storedName, String path) {
 
         String key = path + storedName;
 
-        s3Client.deleteObject(builder -> builder
-                .bucket(bucket)
-                .key(key)
-        );
+        try {
+            s3Client.deleteObject(builder -> builder
+                    .bucket(bucket)
+                    .key(key)
+            );
+        } catch (Exception e) {
+            throw new BusinessException(ExceptionCode.FILE_DELETE_FAILED, e);
+        }
     }
 
     @Override
@@ -128,7 +112,9 @@ public class S3FileStorage implements FileStorage {
 
     @Override
     public Resource load(String storedName, String path) {
+        throw new UnsupportedOperationException("S3는 load() 사용하지 않음. presigned URL 사용");
 
+        /*
         String key = path + storedName;
 
         try {
@@ -143,5 +129,6 @@ public class S3FileStorage implements FileStorage {
         } catch (Exception e) {
             throw new BusinessException(ExceptionCode.FILE_DOWNLOAD_FAILED, e);
         }
+        */
     }
 }

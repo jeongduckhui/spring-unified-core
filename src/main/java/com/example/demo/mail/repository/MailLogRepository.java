@@ -32,4 +32,5 @@ public interface MailLogRepository extends JpaRepository<MailLog, Long> {
             @Param("subject") String subject,
             @Param("status") MailSendStatus status
     );
+
 }

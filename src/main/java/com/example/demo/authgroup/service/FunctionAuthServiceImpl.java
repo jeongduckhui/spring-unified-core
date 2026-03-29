@@ -4,6 +4,7 @@ import com.example.demo.authgroup.domain.FunctionAuthGroup;
 import com.example.demo.authgroup.repository.FunctionAuthGroupRepository;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 public class FunctionAuthServiceImpl implements FunctionAuthService {
 
     private final FunctionAuthGroupRepository functionAuthGroupRepository;
+
+    @Qualifier("functionAuthCache")
     private final Cache<String, Object> functionAuthCache;
 
     @Override

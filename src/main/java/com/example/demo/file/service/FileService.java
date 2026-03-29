@@ -3,27 +3,22 @@ package com.example.demo.file.service;
 import com.example.demo.common.exception.AuthException;
 import com.example.demo.common.exception.BusinessException;
 import com.example.demo.common.exception.ExceptionCode;
+import com.example.demo.file.config.MultipartProperties;
 import com.example.demo.file.domain.FileEntity;
 import com.example.demo.file.dto.FileResponse;
 import com.example.demo.file.repository.FileRepository;
 import com.example.demo.file.storage.FileStorage;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +27,9 @@ public class FileService {
 
     private final FileRepository fileRepository;
     private final FileStorage fileStorage;
+    private final MultipartProperties multipartProperties;
+
+    private final Tika tika = new Tika(); // 싱글 인스턴스
 
     @Value("${file.upload-dir}")
     private String baseDir;
@@ -40,6 +38,15 @@ public class FileService {
     private String allowedExtensions;
 
     private Set<String> allowedExtSet;
+
+    // ✅ MIME 화이트리스트 추가 (실무 핵심)
+    private static final Set<String> ALLOWED_MIME_TYPES = Set.of(
+            "image/jpeg",
+            "image/png",
+            "image/gif",
+            "application/pdf",
+            "text/plain"
+    );
 
     @PostConstruct
     public void init() {
@@ -63,6 +70,12 @@ public class FileService {
 
         if (!file.getUserId().equals(userId)) {
             throw new AuthException(ExceptionCode.FORBIDDEN);
+        }
+
+        if (Boolean.TRUE.equals(file.getMailAttachment())  && file.getExpireAt() != null) {
+            if (file.getExpireAt().isBefore(LocalDateTime.now())) {
+                throw new BusinessException(ExceptionCode.FILE_EXPIRED);
+            }
         }
 
         return fileStorage.getDownloadUrl(
@@ -152,6 +165,22 @@ public class FileService {
     }
 
     @Transactional
+    public FileEntity uploadForMail(
+            MultipartFile file,
+            Long userId,
+            String ip,
+            String userAgent,
+            String deviceId
+    ) {
+        FileEntity entity = upload(file, userId, ip, userAgent, deviceId);
+
+        entity.setMailAttachment(true);
+        entity.setExpireAt(LocalDateTime.now().plusDays(3));
+
+        return fileRepository.save(entity);
+    }
+
+    @Transactional
     public void delete(Long fileId, Long userId) {
         FileEntity file = fileRepository.findByIdAndDeletedFalse(fileId)
                 .orElseThrow(() -> new BusinessException(ExceptionCode.FILE_NOT_FOUND));
@@ -164,12 +193,25 @@ public class FileService {
         fileRepository.save(file);
     }
 
+    public String getDownloadUrlForMail(FileEntity file) {
+        return fileStorage.getDownloadUrl(
+                file.getStoredName(),
+                file.getFilePath(),
+                file.getOriginalName()
+        );
+    }
+
+    // =========================
+    // 핵심: 파일 검증 강화
+    // =========================
     private void validate(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw new BusinessException(ExceptionCode.FILE_EMPTY);
         }
 
-        if (file.getSize() > 10 * 1024 * 1024) {
+        long maxSize = multipartProperties.getMaxFileSize().toBytes();
+
+        if (file.getSize() > maxSize) {
             throw new BusinessException(ExceptionCode.FILE_SIZE_EXCEEDED);
         }
 
@@ -178,6 +220,18 @@ public class FileService {
 
         if (!allowedExtSet.contains(ext)) {
             throw new BusinessException(ExceptionCode.FILE_INVALID_EXTENSION);
+        }
+
+        // Tika MIME 검증 추가
+        try {
+            String detectedType = tika.detect(file.getInputStream());
+
+            if (!ALLOWED_MIME_TYPES.contains(detectedType)) {
+                throw new BusinessException(ExceptionCode.FILE_INVALID_TYPE);
+            }
+
+        } catch (Exception e) {
+            throw new BusinessException(ExceptionCode.FILE_INVALID_TYPE, e);
         }
     }
 
@@ -226,7 +280,6 @@ public class FileService {
         try {
             fileStorage.delete(storedName, path);
         } catch (Exception ignored) {
-            // 업로드 실패 원인을 덮지 않도록 정리 실패는 삼킴
         }
     }
 }

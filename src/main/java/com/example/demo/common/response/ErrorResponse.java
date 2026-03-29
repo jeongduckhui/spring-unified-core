@@ -21,10 +21,14 @@ public class ErrorResponse {
     @Schema(description = "에러 메시지", example = "사용자를 찾을 수 없습니다.")
     private String message;
 
-    public static ErrorResponse of(ExceptionCode e) {
+    public static ErrorResponse of_message적용전(ExceptionCode e) {
         return ErrorResponse.builder()
                 .code(e.getCode())
-                .message(e.getMessage())
+//                .message(e.getMessage())
                 .build();
+    }
+
+    public static ErrorResponse of(String code, String message) {
+        return new ErrorResponse(code, message);
     }
 }

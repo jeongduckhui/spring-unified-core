@@ -28,11 +28,15 @@ public class UserMailService {
         String from = ssoUserProvider.getCurrentUser().getEmail();
 
         mailService.sendUserMailWithAttachment(
+                request.getUserId(),
                 from,
                 request.getTo(),
                 request.getSubject(),
                 request.getContent(),
-                files
+                files,
+                request.getIp(),
+                request.getUserAgent(),
+                request.getDeviceId()
         );
     }
 }

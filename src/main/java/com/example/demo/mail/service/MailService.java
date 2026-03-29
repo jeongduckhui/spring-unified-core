@@ -1,6 +1,7 @@
 package com.example.demo.mail.service;
 
-import com.example.demo.file.service.S3Service;
+import com.example.demo.file.domain.FileEntity;
+import com.example.demo.file.service.FileService;
 import com.example.demo.mail.config.MailProperties;
 import com.example.demo.mail.domain.MailType;
 import jakarta.mail.internet.InternetAddress;
@@ -24,7 +25,9 @@ public class MailService {
     private final JavaMailSender mailSender;
     private final MailProperties mailProperties;
     private final TemplateEngine templateEngine;
-    private final S3Service s3Service;
+
+    // 🔥 변경: S3Service 제거
+    private final FileService fileService;
 
     // =========================
     // 시스템 메일
@@ -115,12 +118,20 @@ public class MailService {
         }
     }
 
+    // =========================
+    // 개인 메일 + 첨부파일
+    // =========================
     public void sendUserMailWithAttachment(
+            Long userId,
             String from,
             List<String> to,
             String subject,
             String content,
-            List<MultipartFile> files
+            List<MultipartFile> files,
+            String ip,
+            String userAgent,
+            String deviceId
+
     ) {
 
         try {
@@ -138,12 +149,25 @@ public class MailService {
             if (files != null) {
                 for (MultipartFile file : files) {
 
-                    validateFile(file); // 🔥 보안
+                    validateFile(file);
 
-                    if (file.getSize() < 5 * 1024 * 1024) {
+                    // 5MB 이하 → 메일 첨부
+//                    if (file.getSize() < 5 * 1024 * 1024) {
+                    if (file.getSize() > 5 * 1024 * 1024) {
                         helper.addAttachment(file.getOriginalFilename(), file);
-                    } else {
-                        String url = s3Service.upload(file);
+                    }
+                    // 5MB 초과 → 파일 업로드 + 링크 삽입
+                    else {
+
+                        FileEntity uploadedFile = fileService.uploadForMail(
+                                file,
+                                userId,
+                                ip,
+                                userAgent,
+                                deviceId
+                        );
+
+                        String url = fileService.getDownloadUrlForMail(uploadedFile);
 
                         finalContent.append("<br><br>")
                                 .append("<a href='").append(url)
@@ -163,7 +187,11 @@ public class MailService {
         }
     }
 
-    private static final List<String> ALLOWED_EXT = List.of("jpg","png","pdf","txt","xlsx");
+    // =========================
+    // 파일 검증
+    // =========================
+    private static final List<String> ALLOWED_EXT =
+            List.of("jpg", "png", "pdf", "txt", "xlsx", "mp4");
 
     private void validateFile(MultipartFile file) {
 
