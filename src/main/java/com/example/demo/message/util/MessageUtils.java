@@ -25,4 +25,5 @@ public class MessageUtils {
     public static String get(String id, String action, Object... args) {
         return messageService.getMessage(id, action, "ko", args);
     }
+
 }
