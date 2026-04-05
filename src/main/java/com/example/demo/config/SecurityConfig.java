@@ -172,7 +172,9 @@ public class SecurityConfig {
                     "/error",
                     "/login/**",
                     "/oauth2/**",
-                    "/auth/refresh"
+                    "/auth/refresh",
+                    "/ws/**",
+                    "/test/**"
             ).permitAll();
 
             // Swagger 접근 제어

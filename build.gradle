@@ -198,6 +198,44 @@ dependencies {
 
     /*
      -------------------------------------------------
+     SOAP
+     -------------------------------------------------
+     */
+    implementation 'org.springframework.ws:spring-ws-core'
+    implementation 'org.glassfish.jaxb:jaxb-runtime'
+
+    /*
+     -------------------------------------------------
+     SOAP Resilience4j
+     -------------------------------------------------
+     */
+    implementation 'io.github.resilience4j:resilience4j-spring-boot3:2.2.0'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    /*
+     -------------------------------------------------
+     SOAP Mock Server
+     -------------------------------------------------
+     */
+    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation 'org.glassfish.jaxb:jaxb-runtime'
+
+    /*
+     -------------------------------------------------
+     SOAP wsdl
+     -------------------------------------------------
+     */
+    implementation 'wsdl4j:wsdl4j:1.6.3'
+
+    /*
+     -------------------------------------------------
+     SOAP kafka
+     -------------------------------------------------
+     */
+    implementation 'org.springframework.kafka:spring-kafka'
+
+    /*
+     -------------------------------------------------
      Lombok
      -------------------------------------------------
      */
