@@ -1,4 +1,4 @@
-package com.example.demo.payment.domain;
+package com.example.demo.soap.payment.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,7 +1,7 @@
-package com.example.demo.approval.service;
+package com.example.demo.soap.approval.service;
 
-import com.example.demo.approval.domain.Approval;
-import com.example.demo.approval.repository.ApprovalRepository;
+import com.example.demo.soap.approval.domain.Approval;
+import com.example.demo.soap.approval.repository.ApprovalRepository;
 import com.example.demo.soap.approval.client.ApprovalSoapClient;
 import com.example.demo.soap.approval.mapper.ApprovalSoapMapper;
 import lombok.RequiredArgsConstructor;

@@ -4,6 +4,7 @@ import com.example.demo.common.response.ApiResult;
 import com.example.demo.common.response.ErrorResponse;
 import com.example.demo.message.constants.MessageActionType;
 import com.example.demo.message.service.MessageService;
+import com.example.demo.transactionlog.context.TransactionLogContext;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
@@ -63,6 +64,9 @@ public class GlobalExceptionHandler {
         );
 
         log.warn("BusinessException: code={}, message={}", code.getCode(), message);
+
+        TransactionLogContext.setMessage(code.getCode(), message);
+        TransactionLogContext.setError(e.getMessage());
 
         return ResponseEntity
                 .status(code.getStatus())
@@ -176,6 +180,12 @@ public class GlobalExceptionHandler {
                 ExceptionCode.INTERNAL_SERVER_ERROR.getMessageId(),
                 ExceptionCode.INTERNAL_SERVER_ERROR.getActionType()
         );
+
+        TransactionLogContext.setMessage(
+                ExceptionCode.INTERNAL_SERVER_ERROR.getCode(),
+                message
+        );
+        TransactionLogContext.setError(e.getMessage());
 
         return ResponseEntity
                 .status(500)

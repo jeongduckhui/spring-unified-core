@@ -1,7 +1,7 @@
 package com.example.demo.soap.payment.client;
 
-import com.example.demo.payment.domain.PaymentExternalLog;
-import com.example.demo.payment.repository.PaymentExternalLogRepository;
+import com.example.demo.soap.payment.domain.PaymentExternalLog;
+import com.example.demo.soap.payment.repository.PaymentExternalLogRepository;
 import com.example.demo.soap.core.AbstractSoapClient;
 import com.example.demo.soap.core.SoapLogHandler;
 import com.example.demo.soap.payment.dto.SoapPaymentRequest;

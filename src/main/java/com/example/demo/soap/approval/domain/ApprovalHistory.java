@@ -1,4 +1,4 @@
-package com.example.demo.approval.domain;
+package com.example.demo.soap.approval.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

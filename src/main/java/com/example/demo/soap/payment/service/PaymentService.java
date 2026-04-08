@@ -1,7 +1,7 @@
-package com.example.demo.payment.service;
+package com.example.demo.soap.payment.service;
 
-import com.example.demo.payment.domain.Payment;
-import com.example.demo.payment.repository.PaymentRepository;
+import com.example.demo.soap.payment.domain.Payment;
+import com.example.demo.soap.payment.repository.PaymentRepository;
 import com.example.demo.soap.payment.client.PaymentSoapClient;
 import com.example.demo.soap.payment.mapper.PaymentSoapMapper;
 import lombok.RequiredArgsConstructor;

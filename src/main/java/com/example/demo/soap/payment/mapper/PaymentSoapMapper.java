@@ -1,6 +1,6 @@
 package com.example.demo.soap.payment.mapper;
 
-import com.example.demo.payment.domain.Payment;
+import com.example.demo.soap.payment.domain.Payment;
 import com.example.demo.soap.payment.dto.SoapPaymentRequest;
 import org.springframework.stereotype.Component;
 

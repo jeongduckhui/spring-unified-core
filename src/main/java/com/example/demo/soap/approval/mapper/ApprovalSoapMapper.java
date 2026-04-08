@@ -1,6 +1,6 @@
 package com.example.demo.soap.approval.mapper;
 
-import com.example.demo.approval.domain.Approval;
+import com.example.demo.soap.approval.domain.Approval;
 import com.example.demo.soap.approval.dto.SoapApproveRequest;
 import org.springframework.stereotype.Component;
 

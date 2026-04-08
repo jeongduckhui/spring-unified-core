@@ -1,7 +1,7 @@
 package com.example.demo.soap.approval.client;
 
-import com.example.demo.approval.domain.ApprovalExternalLog;
-import com.example.demo.approval.repository.ApprovalExternalLogRepository;
+import com.example.demo.soap.approval.domain.ApprovalExternalLog;
+import com.example.demo.soap.approval.repository.ApprovalExternalLogRepository;
 import com.example.demo.soap.approval.dto.SoapApproveRequest;
 import com.example.demo.soap.approval.dto.SoapApproveResponse;
 import com.example.demo.soap.core.AbstractSoapClient;

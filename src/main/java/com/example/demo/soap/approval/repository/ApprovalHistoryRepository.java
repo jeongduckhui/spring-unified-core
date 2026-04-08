@@ -1,6 +1,6 @@
-package com.example.demo.approval.repository;
+package com.example.demo.soap.approval.repository;
 
-import com.example.demo.approval.domain.ApprovalHistory;
+import com.example.demo.soap.approval.domain.ApprovalHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

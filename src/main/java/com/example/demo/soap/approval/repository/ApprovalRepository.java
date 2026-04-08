@@ -1,7 +1,7 @@
-package com.example.demo.approval.repository;
+package com.example.demo.soap.approval.repository;
 
-import com.example.demo.approval.domain.Approval;
-import com.example.demo.approval.domain.ApprovalStatus;
+import com.example.demo.soap.approval.domain.Approval;
+import com.example.demo.soap.approval.domain.ApprovalStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

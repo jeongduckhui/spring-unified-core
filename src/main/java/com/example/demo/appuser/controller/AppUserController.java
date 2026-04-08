@@ -50,19 +50,29 @@ public class AppUserController {
             @Parameter(description = "사용자 ID", example = "1")
             @PathVariable Long id
     ) {
-        return ApiResult.success(userService.findByJpa(id));
+        // ✅ 수정: 성공 메시지 추가
+        return ApiResult.success(
+                userService.findByJpa(id),
+                "SUCCESS",
+                "조회 성공"
+        );
     }
 
     @Operation(
             summary = "사용자 상세 조회",
             description = "사용자 ID를 기반으로 상세 정보를 조회한다."
     )
-    @ApiCommonResponses // Swagger 공통 응답 자동 등록 커스텀 어노테이션 사용
+    @ApiCommonResponses
     @GetMapping("/mybatis/{id}")
     public ApiResult<AppUserDto> getByMyBatis(
             @Parameter(description = "사용자 ID", example = "1")
             @PathVariable Long id)
     {
-        return ApiResult.success(userService.findByMyBatis(id));
+        // ✅ 수정: 성공 메시지 추가
+        return ApiResult.success(
+                userService.findByMyBatis(id),
+                "SUCCESS",
+                "조회 성공"
+        );
     }
 }

@@ -1,7 +1,7 @@
-package com.example.demo.payment.repository;
+package com.example.demo.soap.payment.repository;
 
-import com.example.demo.payment.domain.Payment;
-import com.example.demo.payment.domain.PaymentStatus;
+import com.example.demo.soap.payment.domain.Payment;
+import com.example.demo.soap.payment.domain.PaymentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
