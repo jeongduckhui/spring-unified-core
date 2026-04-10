@@ -28,8 +28,19 @@ public class TransactionLogFilter extends OncePerRequestFilter {
 
         String requestId = UUID.randomUUID().toString();
 
+        // ⭐ 헤더 추출
+        String svcId = request.getHeader("X-Svc-Id");
+        String txType = request.getHeader("X-Transaction-Type");
+        String loggableHeader = request.getHeader("X-Loggable");
+
+        boolean loggable = "true".equalsIgnoreCase(loggableHeader);
+
+        String uri = request.getRequestURI();
+
         TransactionLog log = TransactionLog.builder()
                 .requestId(requestId)
+//                .svcId(svcId)
+                .transactionType(txType)
                 .serverRequestAt(LocalDateTime.now())
                 .createdAt(LocalDateTime.now())
                 .build();
@@ -56,11 +67,51 @@ public class TransactionLogFilter extends OncePerRequestFilter {
 
             log.setServerResponseAt(LocalDateTime.now());
 
-            // DB 1번 저장
-            repository.save(log);
+            // ⭐ 핵심: 로그 저장 여부 판단
+            if (shouldLog(txType, loggable, uri)) {
+                repository.save(log);
+            }
 
             // 필수
             TransactionLogContext.clear();
         }
+    }
+
+    /**
+     * 로그 저장 여부 판단
+     */
+    private boolean shouldLog(String txType, boolean loggable, String uri) {
+
+        // 1️⃣ 프론트에서 제외한 경우
+        if (!loggable) {
+            return false;
+        }
+
+        // 2️⃣ transactionType 없음
+        if (txType == null || txType.isBlank()) {
+            return false;
+        }
+
+        // 3️⃣ 조회 / 저장만 허용
+        if (!(txType.equals("SEARCH") || txType.equals("SAVE"))) {
+            return false;
+        }
+
+        // 4️⃣ 시스템 API 제외 (콤보, 공통코드 등)
+        if (uri.startsWith("/api/common-code")
+                || uri.startsWith("/api/option")
+                || uri.startsWith("/api/code")) {
+            return false;
+        }
+
+        // 5️⃣ swagger / 정적 리소스 제외
+        if (uri.contains("/swagger")
+                || uri.contains("/v3/api-docs")
+                || uri.contains("/h2-console")
+                || uri.contains("/static")) {
+            return false;
+        }
+
+        return true;
     }
 }
