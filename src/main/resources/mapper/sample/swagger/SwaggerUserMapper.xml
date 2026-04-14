@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.sample.swagger.mapper.UserMapper">
+
+    <select id="selectUsers" resultType="com.example.demo.sample.swagger.dto.UserResponse">
+        SELECT
+        USER_ID      AS userId,
+        USER_NAME    AS userName,
+        DEPT_NAME    AS deptName,
+        CREATED_AT   AS createdAt
+        FROM SAMPLE_USER
+        WHERE 1=1
+        <if test="userId != null and userId != ''">
+            AND USER_ID = #{userId}
+        </if>
+        <if test="userName != null and userName != ''">
+            AND USER_NAME LIKE CONCAT('%', #{userName}, '%')
+        </if>
+        <if test="deptName != null and deptName != ''">
+            AND DEPT_NAME = #{deptName}
+        </if>
+    </select>
+
+</mapper>
