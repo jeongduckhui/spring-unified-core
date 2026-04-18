@@ -48,7 +48,9 @@ public enum ExceptionCode {
     FILE_DELETE_FAILED("F502", "FILE_DELETE_FAILED", HttpStatus.INTERNAL_SERVER_ERROR, MessageActionType.COMMON),
     FILE_STORAGE_ERROR("F503", "FILE_STORAGE_ERROR", HttpStatus.INTERNAL_SERVER_ERROR, MessageActionType.COMMON),
     FILE_EXPIRED("F504", "FILE_EXPIRED", HttpStatus.INTERNAL_SERVER_ERROR, MessageActionType.COMMON),
-    FILE_INVALID_TYPE("F505", "FILE_INVALID_TYPE", HttpStatus.INTERNAL_SERVER_ERROR, MessageActionType.COMMON);
+    FILE_INVALID_TYPE("F505", "FILE_INVALID_TYPE", HttpStatus.INTERNAL_SERVER_ERROR, MessageActionType.COMMON),
+
+    INVALID_INPUT("S001", "INVALID_INPUT", HttpStatus.BAD_REQUEST, MessageActionType.COMMON);
 
     private final String code;
     private final String messageId;

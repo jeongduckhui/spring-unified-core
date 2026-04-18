@@ -1,17 +1,13 @@
 
-2026-04-14 =======================================
-
-mybatis.configuration.map-underscore-to-camel-case=true
-- 추가하고 DTO 필드 camelCase로 바꾸고 @JsonProperty 제거하기
-
-application-local.properties
-    - swagger 관련
-
-SwaggerMetaAuthConfig
-MetaController
-
-package com.example.demo.sample.swagger 패키지
-
-resource/static/swagger-custom.js
+2026-04-18 =======================================
 
 
+1. WebConfig.java
+
+2. converter 패키지
+
+3. batch.BatchExecutoer
+
+4. sample.mybatisbatch
+
+5. memo 파일 내 GlobalExceptionHandler에서 DataAccessException 추가해야 함

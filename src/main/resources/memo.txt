@@ -1,0 +1,42 @@
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(BusinessException.class)
+    public ApiResult<?> handleBusinessException(BusinessException e) {
+        return ApiResult.fail(
+                ErrorResponse.builder()
+                        .code(e.getCode().getCode())
+                        .message(e.getCode().getMessage())
+                        .build()
+        );
+    }
+
+    // 이거 추가해야 함
+    // ExceptionHandler에서 Exception 처리 시 log.error("DB ERROR", e); 이렇게 로그 남기는지 확인 필요
+    @ExceptionHandler(DataAccessException.class)
+    public ApiResult<?> handleDatabaseException(DataAccessException e) {
+
+        // 로그는 상세하게
+        log.error("DB ERROR", e);
+
+        return ApiResult.fail(
+                ErrorResponse.builder()
+                        .code("E500")
+                        .message("데이터 처리 중 오류가 발생했습니다.")
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ApiResult<?> handleException(Exception e) {
+
+        log.error("UNKNOWN ERROR", e);
+
+        return ApiResult.fail(
+                ErrorResponse.builder()
+                        .code("E999")
+                        .message("시스템 오류")
+                        .build()
+        );
+    }
+}
