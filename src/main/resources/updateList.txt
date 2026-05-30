@@ -1,13 +1,58 @@
 
-2026-04-18 =======================================
+2026-05-30 =======================================
 
 
-1. WebConfig.java
+excel/validator/NoOpExcelRowValidator.java
+excel/validator/ExcelRowValidator.java
 
-2. converter 패키지
+excel/util/ExcelHeaderUtils.java
+excel/util/ExcelFileNameUtils.java
+excel/util/ExcelColumnUtils.java
+excel/util/ExcelCellReadUtils.java
 
-3. batch.BatchExecutoer
+excel/service/ExcelUploadService.java
+excel/service/ExcelDownloadService.java
 
-4. sample.mybatisbatch
+excel/dto/ExcelValidationError.java
+excel/dto/ExcelUploadResult.java
+excel/dto/ExcelUploadRequest.java
+excel/dto/ExcelUploadOption.java
+excel/dto/ExcelTemplateDownloadRequest.java
+excel/dto/ExcelSheetRequest.java
+excel/dto/ExcelHeaderGroupMeta.java
+excel/dto/ExcelErrorRowsDownloadRequest.java
+excel/dto/ExcelDownloadRequest.java
+excel/dto/ExcelColumnMeta.java
+excel/dto/ExcelCellDataType.java
 
-5. memo 파일 내 GlobalExceptionHandler에서 DataAccessException 추가해야 함
+excel/controller/ExcelController.java
+
+excel/sample/dynamicgrid/service/SampleDynamicGridService.java
+excel/sample/dynamicgrid/service/SampleDynamicGridMyBatisSaveService.java
+excel/sample/dynamicgrid/service/SampleDynamicGridJpaSaveService.java
+excel/sample/dynamicgrid/repository/SampleDynamicGridRepository.java
+excel/sample/dynamicgrid/mapper/SampleDynamicGridMapper.java
+excel/sample/dynamicgrid/excel/SampleDynamicGridExcelValidator.java
+excel/sample/dynamicgrid/entity/SampleDynamicGridEntity.java
+excel/sample/dynamicgrid/dto/SampleDynamicGridSearchRequest.java
+excel/sample/dynamicgrid/dto/SampleDynamicGridSaveRequest.java
+excel/sample/dynamicgrid/dto/SampleDynamicGridRow.java
+excel/sample/dynamicgrid/dto/SampleDynamicGridCellSaveDto.java
+excel/sample/dynamicgrid/controller/SampleDynamicGridController.java
+excel/sample/SalesExcelRowValidator.java
+excel/sample/SalesExcelController.java
+
+resources/mapper/excel/sample/dynamicgrid/SampleDynamicGridMapper.xml
+
+E:/myplayground/workspace3/spring-unified-core/build.gradle
+
+
+src/utils/excel/excelColumnMetaUtils.js
+src/pages/DynamicGridExcelPage.jsx
+src/features/dynamicGrid/dynamicGridStyles.js
+src/features/dynamicGrid/dynamicColumnBuilder.js
+src/features/dynamicGrid/DimensionPopup.jsx
+src/features/dynamicGrid/dimensionOptions.js
+src/components/excel/ExcelGridButtons.jsx
+src/api/sampleDynamicGridApi.js
+src/api/excelApi.js

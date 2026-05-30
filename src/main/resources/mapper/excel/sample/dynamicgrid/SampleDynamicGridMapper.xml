@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.excel.sample.dynamicgrid.mapper.SampleDynamicGridMapper">
+
+    <!--
+        다이나믹 그리드 세로형 조회 결과 매핑.
+
+        DB 컬럼은 SNAKE_CASE이고,
+        DTO는 camelCase이다.
+
+        mybatis.configuration.map-underscore-to-camel-case=true 설정이 있으면
+        resultMap 없이도 매핑 가능하지만,
+        샘플 명확성을 위해 resultMap을 둔다.
+    -->
+    <resultMap id="SampleDynamicGridRowMap"
+               type="com.example.demo.excel.sample.dynamicgrid.dto.SampleDynamicGridRow">
+
+        <result property="baseYm" column="BASE_YM"/>
+        <result property="radioType" column="VIEW_TYPE"/>
+        <result property="multiType" column="MULTI_TYPE"/>
+        <result property="versionCode" column="VERSION_CODE"/>
+
+        <result property="categoryName" column="CATEGORY_NAME"/>
+        <result property="appName" column="APP_NAME"/>
+        <result property="gaNgaType" column="GA_NGA_TYPE"/>
+        <result property="customerName" column="CUSTOMER_NAME"/>
+
+        <result property="sort3" column="SORT3"/>
+        <result property="sort4" column="SORT4"/>
+        <result property="sort5" column="SORT5"/>
+
+        <result property="metricType" column="METRIC_TYPE"/>
+        <result property="yearValue" column="YEAR_VALUE"/>
+        <result property="quarterValue" column="QUARTER_VALUE"/>
+        <result property="valueDecimal" column="VALUE_DECIMAL"/>
+    </resultMap>
+
+    <!--
+        다이나믹 그리드 조회.
+
+        H2 / Oracle 모두 동작하기 쉬운 기본 SQL 형태로 작성한다.
+
+        조건:
+        - BASE_YM between startYm and endYm
+        - radioType 있으면 VIEW_TYPE 조건
+        - singleSelectValue 있으면 VERSION_CODE 조건
+        - multiSelectValues 있으면 MULTI_TYPE in 조건
+        - dimensions 있으면 METRIC_TYPE in 조건
+    -->
+    <select id="selectGridRows"
+            parameterType="com.example.demo.excel.sample.dynamicgrid.dto.SampleDynamicGridSearchRequest"
+            resultMap="SampleDynamicGridRowMap">
+
+        SELECT
+        BASE_YM
+        , VIEW_TYPE
+        , MULTI_TYPE
+        , VERSION_CODE
+        , CATEGORY_NAME
+        , APP_NAME
+        , GA_NGA_TYPE
+        , CUSTOMER_NAME
+        , SORT3
+        , SORT4
+        , SORT5
+        , METRIC_TYPE
+        , YEAR_VALUE
+        , QUARTER_VALUE
+        , VALUE_DECIMAL
+        FROM SAMPLE_DYNAMIC_GRID
+        WHERE 1 = 1
+
+        <if test="startYm != null and startYm != ''">
+            AND BASE_YM <![CDATA[>=]]> #{startYm}
+        </if>
+
+        <if test="endYm != null and endYm != ''">
+            AND BASE_YM <![CDATA[<=]]> #{endYm}
+        </if>
+
+        <if test="radioType != null and radioType != ''">
+            AND VIEW_TYPE = #{radioType}
+        </if>
+
+        <if test="singleSelectValue != null and singleSelectValue != ''">
+            AND VERSION_CODE = #{singleSelectValue}
+        </if>
+
+        <if test="multiSelectValues != null and multiSelectValues.size() > 0">
+            AND MULTI_TYPE IN
+            <foreach collection="multiSelectValues"
+                     item="multiType"
+                     open="("
+                     separator=","
+                     close=")">
+                #{multiType}
+            </foreach>
+        </if>
+
+        <if test="dimensions != null and dimensions.size() > 0">
+            AND METRIC_TYPE IN
+            <foreach collection="dimensions"
+                     item="dimension"
+                     open="("
+                     separator=","
+                     close=")">
+                #{dimension}
+            </foreach>
+        </if>
+
+        ORDER BY
+        CATEGORY_NAME
+        , APP_NAME
+        , GA_NGA_TYPE
+        , CUSTOMER_NAME
+        , METRIC_TYPE
+        , YEAR_VALUE
+        , QUARTER_VALUE
+    </select>
+
+    <!--
+        row key 기준 기존 데이터 삭제.
+
+        다이나믹 컬럼 저장은 delete 후 insert 전략을 사용한다.
+
+        row key:
+        - VIEW_TYPE
+        - MULTI_TYPE
+        - VERSION_CODE
+        - CATEGORY_NAME
+        - APP_NAME
+        - GA_NGA_TYPE
+        - CUSTOMER_NAME
+
+        BASE_YM / METRIC_TYPE / YEAR_VALUE / QUARTER_VALUE는
+        같은 row의 동적 값 전체를 갈아끼우기 위해 삭제 조건에서 제외한다.
+    -->
+    <delete id="deleteByRowKey"
+            parameterType="com.example.demo.excel.sample.dynamicgrid.dto.SampleDynamicGridCellSaveDto">
+
+        DELETE FROM SAMPLE_DYNAMIC_GRID
+        WHERE 1 = 1
+        AND VIEW_TYPE = #{radioType}
+        AND MULTI_TYPE = #{multiType}
+        AND VERSION_CODE = #{versionCode}
+        AND CATEGORY_NAME = #{categoryName}
+        AND APP_NAME = #{appName}
+        AND GA_NGA_TYPE = #{gaNgaType}
+        AND CUSTOMER_NAME = #{customerName}
+    </delete>
+
+    <!--
+        세로형 셀 단건 insert.
+
+        H2 기준 ID는 IDENTITY 자동 생성이므로 ID 컬럼은 넣지 않는다.
+        Oracle로 전환할 경우 ID 컬럼에 SAMPLE_DYNAMIC_GRID_SEQ.NEXTVAL을 넣는 insert로 바꾸면 된다.
+    -->
+    <insert id="insertCell"
+            parameterType="com.example.demo.excel.sample.dynamicgrid.dto.SampleDynamicGridCellSaveDto">
+
+        INSERT INTO SAMPLE_DYNAMIC_GRID (
+        BASE_YM
+        , VIEW_TYPE
+        , MULTI_TYPE
+        , VERSION_CODE
+        , CATEGORY_NAME
+        , APP_NAME
+        , GA_NGA_TYPE
+        , CUSTOMER_NAME
+        , SORT3
+        , SORT4
+        , SORT5
+        , METRIC_TYPE
+        , YEAR_VALUE
+        , QUARTER_VALUE
+        , VALUE_DECIMAL
+        , CREATED_AT
+        , UPDATED_AT
+        )
+        VALUES (
+        #{baseYm}
+        , #{radioType}
+        , #{multiType}
+        , #{versionCode}
+        , #{categoryName}
+        , #{appName}
+        , #{gaNgaType}
+        , #{customerName}
+        , #{sort3}
+        , #{sort4}
+        , #{sort5}
+        , #{metricType}
+        , #{yearValue}
+        , #{quarterValue}
+        , #{valueDecimal}
+        , CURRENT_TIMESTAMP
+        , CURRENT_TIMESTAMP
+        )
+    </insert>
+
+    <!--
+        H2 샘플용 batch insert.
+
+        H2는 INSERT INTO ... VALUES (...), (...), (...) 형태를 지원한다.
+        Oracle에서는 이 문법이 그대로 동작하지 않는다.
+
+        Oracle 전환 시:
+        INSERT ALL
+          INTO SAMPLE_DYNAMIC_GRID (...) VALUES (...)
+          INTO SAMPLE_DYNAMIC_GRID (...) VALUES (...)
+        SELECT 1 FROM DUAL
+        형태 또는 MyBatis Batch Executor 단건 반복 방식을 추천한다.
+    -->
+    <insert id="insertCells">
+        INSERT INTO SAMPLE_DYNAMIC_GRID (
+        BASE_YM
+        , VIEW_TYPE
+        , MULTI_TYPE
+        , VERSION_CODE
+        , CATEGORY_NAME
+        , APP_NAME
+        , GA_NGA_TYPE
+        , CUSTOMER_NAME
+        , SORT3
+        , SORT4
+        , SORT5
+        , METRIC_TYPE
+        , YEAR_VALUE
+        , QUARTER_VALUE
+        , VALUE_DECIMAL
+        , CREATED_AT
+        , UPDATED_AT
+        )
+        VALUES
+        <foreach collection="cells" item="cell" separator=",">
+            (
+            #{cell.baseYm}
+            , #{cell.radioType}
+            , #{cell.multiType}
+            , #{cell.versionCode}
+            , #{cell.categoryName}
+            , #{cell.appName}
+            , #{cell.gaNgaType}
+            , #{cell.customerName}
+            , #{cell.sort3}
+            , #{cell.sort4}
+            , #{cell.sort5}
+            , #{cell.metricType}
+            , #{cell.yearValue}
+            , #{cell.quarterValue}
+            , #{cell.valueDecimal}
+            , CURRENT_TIMESTAMP
+            , CURRENT_TIMESTAMP
+            )
+        </foreach>
+    </insert>
+
+    <!--
+        H2 샘플 데이터 초기화.
+    -->
+    <delete id="deleteAllSampleData">
+        DELETE FROM SAMPLE_DYNAMIC_GRID
+    </delete>
+
+    <!--
+        H2 샘플 데이터 insert.
+        insertCells와 동일한 구조지만, 의미를 분리하기 위해 별도 id로 둔다.
+    -->
+    <insert id="insertSampleCells">
+        INSERT INTO SAMPLE_DYNAMIC_GRID (
+        BASE_YM
+        , VIEW_TYPE
+        , MULTI_TYPE
+        , VERSION_CODE
+        , CATEGORY_NAME
+        , APP_NAME
+        , GA_NGA_TYPE
+        , CUSTOMER_NAME
+        , SORT3
+        , SORT4
+        , SORT5
+        , METRIC_TYPE
+        , YEAR_VALUE
+        , QUARTER_VALUE
+        , VALUE_DECIMAL
+        , CREATED_AT
+        , UPDATED_AT
+        )
+        VALUES
+        <foreach collection="cells" item="cell" separator=",">
+            (
+            #{cell.baseYm}
+            , #{cell.radioType}
+            , #{cell.multiType}
+            , #{cell.versionCode}
+            , #{cell.categoryName}
+            , #{cell.appName}
+            , #{cell.gaNgaType}
+            , #{cell.customerName}
+            , #{cell.sort3}
+            , #{cell.sort4}
+            , #{cell.sort5}
+            , #{cell.metricType}
+            , #{cell.yearValue}
+            , #{cell.quarterValue}
+            , #{cell.valueDecimal}
+            , CURRENT_TIMESTAMP
+            , CURRENT_TIMESTAMP
+            )
+        </foreach>
+    </insert>
+
+</mapper>

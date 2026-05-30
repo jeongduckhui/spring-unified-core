@@ -53,6 +53,24 @@ public class ApiResult<T> {
                 .build();
     }
 
+    public static ApiResult<Void> success(String msg) {
+
+        String message = msg == null
+                ? "정상 처리"
+                : msg;
+
+        TransactionLogContext.setMessage(
+                "SUCCESS",
+                message
+        );
+
+        return ApiResult.<Void>builder()
+                .success(true)
+                .message(message)
+                .error(null)
+                .build();
+    }
+
     /**
      * 실패 응답
      */

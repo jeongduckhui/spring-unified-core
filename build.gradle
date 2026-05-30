@@ -244,6 +244,14 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    /*
+     -------------------------------------------------
+     Excel
+     -------------------------------------------------
+    */
+    // 엑셀 파일(.xlsx) 읽기/쓰기
+    implementation 'org.apache.poi:poi-ooxml:5.2.5'
+
 
     /*
      -------------------------------------------------
