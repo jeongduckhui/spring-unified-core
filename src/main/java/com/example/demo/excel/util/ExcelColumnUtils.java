@@ -52,10 +52,26 @@ public final class ExcelColumnUtils {
         return columns.stream()
                 .filter(Objects::nonNull)
                 .filter(ExcelColumnUtils::hasTextField)
-                .filter(ExcelColumnUtils::hasTextHeaderName)
+//                .filter(ExcelColumnUtils::hasTextHeaderName)
+                .filter(ExcelColumnUtils::hasValidHeader)
                 .filter(column -> includeByHiddenCondition(column, excludeHiddenColumns))
                 .sorted(columnOrderComparator())
                 .toList();
+    }
+
+    private static boolean hasValidHeader(ExcelColumnMeta column) {
+
+        if (hasText(column.getHeaderName())) {
+            return true;
+        }
+
+        if (column.getHeaderPath() == null || column.getHeaderPath().isEmpty()) {
+            return false;
+        }
+
+        return column.getHeaderPath()
+                .stream()
+                .anyMatch(ExcelColumnUtils::hasText);
     }
 
     /**

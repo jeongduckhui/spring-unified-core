@@ -123,6 +123,15 @@ public class ExcelDownloadService {
         // 템플릿은 실제 데이터가 없으므로 빈 리스트를 사용한다.
         List<Map<String, Object>> rows = List.of();
 
+        log.info(
+                "useMultiHeader={}, hasHeaderPath={}",
+                request.isUseMultiHeader(),
+                hasHeaderPath(columns)
+        );
+
+//        log.info("headerPath={}",
+//                columns.get(0).getHeaderPath());
+
         // 엑셀 파일을 생성한다.
         return createExcelBytes(
                 request.getSheetName(),
@@ -396,6 +405,18 @@ public class ExcelDownloadService {
 
         // 컬럼 목록을 순회한다.
         for (ExcelColumnMeta column : columns) {
+
+            log.info(
+                    "field={}, headerPath={}",
+                    column.getField(),
+                    column.getHeaderPath()
+            );
+
+            log.info(
+                    "field={}, headerPath={}",
+                    column.getField(),
+                    column.getHeaderPath()
+            );
 
             // 컬럼이 없으면 다음 컬럼으로 넘어간다.
             if (column == null) {

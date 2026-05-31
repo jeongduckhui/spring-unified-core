@@ -83,26 +83,34 @@ public class ExcelUploadService {
         // 업로드 파일 자체를 검증한다.
         validateFile(file);
 
+        // 요청 컬럼 목록을 먼저 정리한다.
+        // 이유:
+        // 업로드 옵션을 자동 생성하려면 ColumnMeta의 headerPath를 보고
+        // 헤더가 1단인지, 2단인지, 3단인지 판단해야 하기 때문이다.
+        List<ExcelColumnMeta> columns = ExcelColumnUtils.normalizeColumns(
+                request == null ? null : request.getColumns(),
+                false
+        );
+
         // 업로드 옵션을 결정한다.
-        ExcelUploadOption option = resolveOption(request);
+        // request.option이 있으면 요청 옵션을 우선 사용하고,
+        // request.option이 없으면 columns의 headerPath 기준으로 자동 생성한다.
+        ExcelUploadOption option = resolveOption(request, columns);
 
         // 업무 Validator가 null이면 기본 Validator로 대체한다.
         ExcelRowValidator resolvedRowValidator = resolveRowValidator(rowValidator);
-
-        // 요청 컬럼 목록을 정리한다.
-        List<ExcelColumnMeta> columns = ExcelColumnUtils.normalizeColumns(
-                request.getColumns(),
-                false
-        );
 
         try (InputStream inputStream = file.getInputStream();
              Workbook workbook = WorkbookFactory.create(inputStream)) {
 
             // 요청 시트명 기준 또는 첫 번째 시트를 가져온다.
-            Sheet sheet = resolveSheet(workbook, request.getSheetName());
+            Sheet sheet = resolveSheet(
+                    workbook,
+                    request == null ? null : request.getSheetName()
+            );
 
             // 업로드 파일의 헤더 정보를 읽는다.
-            Map<Integer, String> uploadHeaderMap = ExcelHeaderUtils.readHeaderMap(sheet, option);
+            Map<Integer, List<String>> uploadHeaderMap = ExcelHeaderUtils.readHeaderMap(sheet, option);
 
             // 전체 오류 목록을 생성한다.
             List<ExcelValidationError> errors = new ArrayList<>();
@@ -146,11 +154,9 @@ public class ExcelUploadService {
             // errors가 비어 있으면 전체 성공이다.
             boolean success = errors.isEmpty();
 
-
             log.info("columns size={}", columns.size());
             log.info("columnIndexMap size={}", columnIndexMap.size());
             log.info("uploadHeaderMap={}", uploadHeaderMap);
-
 
             // 업로드 결과를 반환한다.
             return ExcelUploadResult.builder()
@@ -494,18 +500,30 @@ public class ExcelUploadService {
     /**
      * 업로드 옵션을 결정한다.
      *
+     * <p>
+     * 우선순위:
+     * 1. 요청에서 option을 직접 넘긴 경우: 요청 option을 그대로 사용한다.
+     * 2. 요청 option이 없는 경우: columns의 headerPath를 기준으로 자동 계산한다.
+     * </p>
+     *
      * @param request 업로드 요청
+     * @param columns 업로드 컬럼 메타 목록
      * @return 업로드 옵션
      */
-    private ExcelUploadOption resolveOption(ExcelUploadRequest request) {
+    private ExcelUploadOption resolveOption(
+            ExcelUploadRequest request,
+            List<ExcelColumnMeta> columns
+    ) {
 
-        // request 또는 option이 없으면 기본 옵션을 사용한다.
-        if (request == null || request.getOption() == null) {
-            return ExcelUploadOption.defaultOption();
+        // 요청에서 option을 직접 넘긴 경우에는 그 값을 우선 사용한다.
+        // 프론트에서 headerEndRowIndex, dataStartRowIndex를 명확히 내려보낸 경우
+        // 백엔드가 임의로 덮어쓰지 않기 위함이다.
+        if (request != null && request.getOption() != null) {
+            return request.getOption();
         }
 
-        // 요청 option을 그대로 사용한다.
-        return request.getOption();
+        // option이 없으면 columns의 headerPath를 기준으로 자동 생성한다.
+        return ExcelUploadOption.fromColumns(columns, false);
     }
 
     /**

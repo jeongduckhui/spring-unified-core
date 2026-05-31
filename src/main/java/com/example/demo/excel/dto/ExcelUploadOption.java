@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.Objects;
+
 /**
  * 엑셀 업로드 옵션 DTO.
  *
@@ -124,30 +127,81 @@ public class ExcelUploadOption {
     }
 
     /**
-     * 2단 헤더용 기본 업로드 옵션을 생성한다.
+     * 다중 헤더용 기본 업로드 옵션을 생성한다.
+     *
+     * @param headerDepth 헤더 depth
+     * @return 다중 헤더 기본 업로드 옵션
+     */
+    public static ExcelUploadOption defaultMultiHeaderOption(int headerDepth) {
+
+        int resolvedHeaderDepth = Math.max(headerDepth, 1);
+
+        return ExcelUploadOption.builder()
+                .useMultiHeader(resolvedHeaderDepth > 1)
+                .headerStartRowIndex(0)
+                .headerEndRowIndex(resolvedHeaderDepth - 1)
+                .dataStartRowIndex(resolvedHeaderDepth)
+                .ignoreEmptyRow(true)
+                .blockFormula(true)
+                .includeErrorRows(true)
+                .build();
+    }
+
+    /**
+     * 3단 헤더용 기본 업로드 옵션을 생성한다.
      *
      * <p>
-     * 기본값:
-     * 1행~2행 헤더,
-     * 3행부터 데이터,
-     * 빈 행 무시,
-     * 수식 차단,
-     * 오류 행 포함
+     * 하위 호환용 메서드다.
+     * 동적 헤더 화면에서는 headerDepth를 받는 defaultMultiHeaderOption(int)를 사용하는 것을 권장한다.
      * </p>
      *
-     * @return 2단 헤더 기본 업로드 옵션
+     * @return 3단 헤더 기본 업로드 옵션
      */
     public static ExcelUploadOption defaultMultiHeaderOption() {
+        return defaultMultiHeaderOption(3);
+    }
+
+    public static ExcelUploadOption fromColumns(
+            List<ExcelColumnMeta> columns,
+            boolean hasExampleRow
+    ) {
+        int headerDepth = 1;
+
+        if (columns != null && !columns.isEmpty()) {
+
+            for (ExcelColumnMeta column : columns) {
+
+                if (column == null) {
+                    continue;
+                }
+
+                if (column.getHeaderPath() != null && !column.getHeaderPath().isEmpty()) {
+
+                    int pathDepth = (int) column.getHeaderPath()
+                            .stream()
+                            .filter(value -> value != null && !value.trim().isEmpty())
+                            .count();
+
+                    headerDepth = Math.max(headerDepth, pathDepth);
+                    continue;
+                }
+
+                if (column.getParentHeader() != null
+                        && !column.getParentHeader().trim().isEmpty()) {
+                    headerDepth = Math.max(headerDepth, 2);
+                }
+            }
+        }
+
         return ExcelUploadOption.builder()
-                .useMultiHeader(true)
+                .useMultiHeader(headerDepth > 1)
                 .headerStartRowIndex(0)
-//                .headerEndRowIndex(1)
-//                .dataStartRowIndex(2)
-                .headerEndRowIndex(2)
-                .dataStartRowIndex(3)
+                .headerEndRowIndex(headerDepth - 1)
+                .dataStartRowIndex(hasExampleRow ? headerDepth + 1 : headerDepth)
                 .ignoreEmptyRow(true)
                 .blockFormula(true)
                 .includeErrorRows(true)
                 .build();
     }
 }
+
