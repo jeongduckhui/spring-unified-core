@@ -2,6 +2,7 @@ package com.example.demo.common.exception.sample;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,15 +31,21 @@ public class SampleGlobalExceptionHandler extends ResponseEntityExceptionHandler
             HttpStatusCode status,
             WebRequest request
     ) {
+        Locale locale = LocaleContextHolder.getLocale();
+
         List<SampleApiResult.FieldErrorResponse> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(this::toFieldErrorResponse)
                 .toList();
 
-        String message = errors.isEmpty()
-                ? getMessage(SampleExceptionCode.INVALID_REQUEST.getMessageKey(), null, Locale.getDefault())
-                : errors.get(0).message();
+//        String message = errors.isEmpty()
+//                ? getMessage(SampleExceptionCode.INVALID_REQUEST.getMessageKey(), null, Locale.getDefault())
+//                : errors.get(0).message();
+
+        String message = errors.size() == 1
+                ? errors.get(0).message()
+                : getMessage(SampleExceptionCode.INVALID_REQUEST.getMessageKey(), null, locale);
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
