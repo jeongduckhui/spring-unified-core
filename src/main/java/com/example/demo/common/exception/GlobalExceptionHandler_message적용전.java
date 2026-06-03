@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
-@RestControllerAdvice
+//@RestControllerAdvice
 @Slf4j
 @RequiredArgsConstructor
 public class GlobalExceptionHandler_message적용전 {
