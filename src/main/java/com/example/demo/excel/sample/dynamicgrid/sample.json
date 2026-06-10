@@ -1,0 +1,262 @@
+{
+  "sheetName": "DynamicGrid",
+  "columns": [
+    {
+      "field": "categoryName",
+      "headerName": "구분",
+      "parentHeader": null,
+      "level": 0,
+      "headerPath": [
+        "구분"
+      ],
+      "required": true,
+      "exampleValue": "구분1",
+      "dataType": "STRING",
+      "hidden": false,
+      "order": 1
+    },
+    {
+      "field": "appName",
+      "headerName": "APP",
+      "parentHeader": null,
+      "level": 0,
+      "headerPath": [
+        "APP"
+      ],
+      "required": true,
+      "exampleValue": "APP-A",
+      "dataType": "STRING",
+      "hidden": false,
+      "order": 2
+    },
+    {
+      "field": "gaNgaType",
+      "headerName": "GA/NGA",
+      "parentHeader": null,
+      "level": 0,
+      "headerPath": [
+        "GA/NGA"
+      ],
+      "required": true,
+      "exampleValue": "GA",
+      "dataType": "STRING",
+      "hidden": false,
+      "order": 3
+    },
+    {
+      "field": "customerName",
+      "headerName": "CUSTOMER",
+      "parentHeader": null,
+      "level": 0,
+      "headerPath": [
+        "CUSTOMER"
+      ],
+      "required": true,
+      "exampleValue": "삼성전자",
+      "dataType": "STRING",
+      "hidden": false,
+      "order": 4
+    },
+    {
+      "field": "QTY_Q202601",
+      "headerName": "1M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "QTY",
+        "2026",
+        "1M"
+      ],
+      "required": false,
+      "exampleValue": "100",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 5
+    },
+    {
+      "field": "QTY_Q202602",
+      "headerName": "2M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "QTY",
+        "2026",
+        "2M"
+      ],
+      "required": false,
+      "exampleValue": "100",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 6
+    },
+    {
+      "field": "QTY_Q202603",
+      "headerName": "3M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "QTY",
+        "2026",
+        "3M"
+      ],
+      "required": false,
+      "exampleValue": "100",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 7
+    },
+    {
+      "field": "QTY_Q202604",
+      "headerName": "4M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "QTY",
+        "2026",
+        "4M"
+      ],
+      "required": false,
+      "exampleValue": "100",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 8
+    },
+    {
+      "field": "ASP_Q202601",
+      "headerName": "1M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "ASP",
+        "2026",
+        "1M"
+      ],
+      "required": false,
+      "exampleValue": "10.5",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 9
+    },
+    {
+      "field": "ASP_Q202602",
+      "headerName": "2M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "ASP",
+        "2026",
+        "2M"
+      ],
+      "required": false,
+      "exampleValue": "10.5",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 10
+    },
+    {
+      "field": "ASP_Q202603",
+      "headerName": "3M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "ASP",
+        "2026",
+        "3M"
+      ],
+      "required": false,
+      "exampleValue": "10.5",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 11
+    },
+    {
+      "field": "ASP_Q202604",
+      "headerName": "4M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "ASP",
+        "2026",
+        "4M"
+      ],
+      "required": false,
+      "exampleValue": "10.5",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 12
+    },
+    {
+      "field": "AMT_Q202601",
+      "headerName": "1M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "AMT",
+        "2026",
+        "1M"
+      ],
+      "required": false,
+      "exampleValue": "1000",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 13
+    },
+    {
+      "field": "AMT_Q202602",
+      "headerName": "2M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "AMT",
+        "2026",
+        "2M"
+      ],
+      "required": false,
+      "exampleValue": "1000",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 14
+    },
+    {
+      "field": "AMT_Q202603",
+      "headerName": "3M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "AMT",
+        "2026",
+        "3M"
+      ],
+      "required": false,
+      "exampleValue": "1000",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 15
+    },
+    {
+      "field": "AMT_Q202604",
+      "headerName": "4M",
+      "parentHeader": "2026",
+      "level": 2,
+      "headerPath": [
+        "AMT",
+        "2026",
+        "4M"
+      ],
+      "required": false,
+      "exampleValue": "1000",
+      "dataType": "BIG_DECIMAL",
+      "hidden": false,
+      "order": 16
+    }
+  ],
+  "option": {
+    "useMultiHeader": true,
+    "headerStartRowIndex": 0,
+    "headerEndRowIndex": 2,
+    "dataStartRowIndex": 3,
+    "ignoreEmptyRow": true,
+    "blockFormula": true,
+    "includeErrorRows": true
+  }
+}
