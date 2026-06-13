@@ -42,7 +42,8 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/excel/sample/dynamic-grid")
+//@RequestMapping("/api/excel/sample/dynamic-grid")
+@RequestMapping("/test/api/excel/sample/dynamic-grid")
 @RequiredArgsConstructor
 public class SampleDynamicGridController {
 
