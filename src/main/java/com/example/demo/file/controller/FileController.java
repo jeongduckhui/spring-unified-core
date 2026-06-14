@@ -86,6 +86,8 @@ import java.util.stream.Collectors;
  *    - 물리 삭제 실패 시 예외 발생
  * 8. /test/files → /files 원복
  * 9. 프론트 메뉴에서 S3/NAS 화면을 실무에서 둘 다 둘지, NAS만 둘지 결정
+ * 
+ * 🎃 기존 ccc 어드민 파일 서비스/레포지토리 확인해서 적용해야 함
  */
 @RestController
 @RequiredArgsConstructor
