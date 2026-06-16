@@ -42,8 +42,8 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-//@RequestMapping("/api/excel/sample/dynamic-grid")
-@RequestMapping("/test/api/excel/sample/dynamic-grid")
+@RequestMapping("/api/excel/sample/dynamic-grid")
+//@RequestMapping("/test/api/excel/sample/dynamic-grid")
 @RequiredArgsConstructor
 public class SampleDynamicGridController {
 
@@ -198,11 +198,18 @@ public class SampleDynamicGridController {
         log.info("option={}", request.getOption());
 
         // 공통 업로드 서비스 + 업무 Validator로 업로드 검증을 수행한다.
+        /*
         ExcelUploadResult result = excelUploadService.upload(
                 file,
                 request,
                 sampleDynamicGridExcelValidator
         );
+        */
+
+        ExcelUploadResult result = excelUploadService.uploadWithDrmDecrypt(
+                file,
+                request,
+                sampleDynamicGridExcelValidator);
 
         // 공통 응답으로 반환한다.
         return ApiResult.success(result);

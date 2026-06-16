@@ -165,6 +165,47 @@ public class ExcelController {
     }
 
     /**
+     * DRM 복호화 엑셀 업로드 API.
+     *
+     * <p>
+     * 업로드된 엑셀 파일을 즉시 DB에 저장하지 않고,
+     * 서버에서 검증한 뒤 Grid에 표시할 수 있는 결과를 반환.
+     * </p>
+     *
+     * <p>
+     * 처리 흐름:
+     * 업로드
+     * → 헤더 검증
+     * → 필수값 검증
+     * → 타입 변환
+     * → 오류 목록 생성
+     * → Grid 표시
+     * → 사용자 확인 후 별도 저장 API 호출
+     * </p>
+     *
+     * @param file 업로드 엑셀 파일
+     * @param request 업로드 처리 기준 요청
+     * @return 업로드 검증 결과
+     */
+    @PostMapping(
+            value = "/decrypt/upload",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public ApiResult<ExcelUploadResult> uploadWithDrmDecrypt(
+            @RequestPart("file") MultipartFile file,
+            @RequestPart("request") ExcelUploadRequest request
+    ) {
+
+        // DRM 복호화 엑셀 업로드 검증 결과 생성
+        ExcelUploadResult result = excelUploadService.uploadWithDrmDecrypt(file, request);
+
+        log.info("option={}", request == null ? null : request.getOption());
+
+        // 공통 응답 형태로 반환한다.
+        return ApiResult.success(result);
+    }
+
+    /**
      * 엑셀 파일 다운로드 응답을 생성한다.
      *
      * @param fileName 파일명
