@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.querytrace.sample.mapper.QueryTraceSampleMapper">
+
+    <select id="selectRows"
+            parameterType="com.example.demo.querytrace.sample.dto.QueryTraceSampleSearchRequest"
+            resultType="com.example.demo.querytrace.sample.dto.QueryTraceSampleRow">
+        SELECT
+            ID
+            , BASE_YM
+            , VIEW_TYPE
+            , MULTI_TYPE
+            , VERSION_CODE
+            , CATEGORY_NAME
+            , APP_NAME
+            , GA_NGA_TYPE
+            , CUSTOMER_NAME
+            , SORT3
+            , SORT4
+            , SORT5
+            , METRIC_TYPE
+            , YEAR_VALUE
+            , QUARTER_VALUE
+            , VALUE_DECIMAL
+            , CREATED_AT
+            , UPDATED_AT
+        FROM SAMPLE_DYNAMIC_GRID
+        WHERE 1 = 1
+        <if test="startYm != null and startYm != ''">
+            AND BASE_YM <![CDATA[>=]]> #{startYm}
+        </if>
+        <if test="endYm != null and endYm != ''">
+            AND BASE_YM <![CDATA[<=]]> #{endYm}
+        </if>
+        <if test="viewType != null and viewType != ''">
+            AND VIEW_TYPE = #{viewType}
+        </if>
+        <if test="multiType != null and multiType != ''">
+            AND MULTI_TYPE = #{multiType}
+        </if>
+        <if test="versionCode != null and versionCode != ''">
+            AND VERSION_CODE = #{versionCode}
+        </if>
+        <if test="customerName != null and customerName != ''">
+            AND CUSTOMER_NAME LIKE CONCAT('%', #{customerName}, '%')
+        </if>
+        <if test="metricType != null and metricType != ''">
+            AND METRIC_TYPE = #{metricType}
+        </if>
+        ORDER BY
+            BASE_YM
+            , CUSTOMER_NAME
+            , METRIC_TYPE
+            , YEAR_VALUE
+            , QUARTER_VALUE
+    </select>
+
+</mapper>
