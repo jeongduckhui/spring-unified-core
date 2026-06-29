@@ -17,7 +17,7 @@ public class RedisPubSubConfig {
 
     private final RedisConnectionFactory redisConnectionFactory;
 
-    // 🔥 Subscriber들 (확장 가능)
+    // Subscriber들 (확장 가능)
     private final CommonCodeCacheSubscriber commonCodeSubscriber;
     // private final MessageCacheSubscriber messageSubscriber; (추후)
 

@@ -83,7 +83,7 @@ public class QueryTraceRedisService {
          *
          * N은 query-trace.max-trace-count-per-screen 설정으로 변경 가능하다.
          */
-        int maxTraceCount = queryTraceProperties.getMaxTraceCountPerScreen();
+        int maxTraceCount = Math.max(1, queryTraceProperties.getMaxTraceCountPerScreen());
 
         // 새 trace가 LPUSH되면 기존 목록의 maxTraceCount - 1 이후 항목은 잘려나간다.
         // 잘려나갈 trace의 상세 Key도 함께 삭제해서 Redis에 불필요한 상세 데이터가 남지 않게 한다.
@@ -318,7 +318,9 @@ public class QueryTraceRedisService {
         if (!StringUtils.hasText(value)) {
             return "unknown";
         }
-        return value.replace(":", "_");
+        return value
+                .trim()
+                .replaceAll("[^a-zA-Z0-9/_\\-.]", "_");
     }
 
     private String toString(LocalDateTime dateTime) {
@@ -340,6 +342,8 @@ public class QueryTraceRedisService {
             return 0L;
         }
     }
+
+
 
     private int toInt(Object value) {
         try {
